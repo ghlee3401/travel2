@@ -17,16 +17,16 @@
 :root{
   --paper:#F5F8F7; --card:#FFFFFF; --ink:#10201C; --sub:#51635E; --line:#DCE5E2;
   --ferry:#0B5D4B; --d1:#D7263D; --d2:#1F5FBF; --d3:#0B7A4B; --amber:#F2A900; --amber-bg:#FFF6DC;
-  --wait-bg:#EEF1FF; --wait-ink:#33408F; --rest-bg:#EAF4EF;
+  --wait-bg:#EEF1FF; --wait-ink:#33408F; --wx-cloud:#B9C3CF; --wx-rain:#2F6FD6; --rest-bg:#EAF4EF;
   --map-land:#F1F4F1; --map-sea:#CFE0EA; --map-hill:#D6E5CF; --map-road:#E2E8E4; --map-ink:#10201C; --map-sub:#51635E; --map-halo:#F3F6F4;
   --font-body:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --font-num:'Barlow Condensed','Arial Narrow',sans-serif;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--rest-bg:#18302A;color-scheme:dark}
+  :root:not([data-theme="light"]){--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--wx-cloud:#8C98A6;--wx-rain:#7FB0FF;--rest-bg:#18302A;color-scheme:dark}
 }
-:root[data-theme="dark"]{--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--rest-bg:#18302A;color-scheme:dark}
+:root[data-theme="dark"]{--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--wx-cloud:#8C98A6;--wx-rain:#7FB0FF;--rest-bg:#18302A;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -113,6 +113,13 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 .wx b,.wc b{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
 .wxv{display:inline-block;font-family:var(--font-num);font-weight:600;font-size:20px;line-height:1.2;margin-right:12px;font-variant-numeric:tabular-nums}
 .wx p{margin:6px 0 0;line-height:1.5}
+.wxtop{display:flex;align-items:center;gap:12px}
+.wxtop svg{width:52px;height:52px;flex:none}
+.wxsky{display:block;font-weight:700;font-size:16px}
+.wxparts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px;text-align:center}
+.wxparts div{background:var(--card);border-radius:8px;padding:6px 4px;font-size:12.5px;color:var(--sub)}
+.wxparts svg{width:30px;height:30px;display:block;margin:2px auto}
+.wxparts b{display:block;color:var(--ink);font-size:13px;margin:0}
 .wc ul{margin:0;padding:0;list-style:none}
 .wc li{padding:3px 0;line-height:1.45}
 .wc em{font-style:normal;font-family:var(--font-num);font-weight:600;font-size:15px;color:var(--c);margin-right:6px}
@@ -121,6 +128,11 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 48 48"><circle cx="24" cy="24" r="9" fill="var(--amber)"></circle><g stroke="var(--amber)" stroke-width="3" stroke-linecap="round"><path d="M24 5v6M24 37v6M5 24h6M37 24h6M10.6 10.6l4.2 4.2M33.2 33.2l4.2 4.2M10.6 37.4l4.2-4.2M33.2 14.8l4.2-4.2"></path></g></symbol>
+  <symbol id="i-partly" viewBox="0 0 48 48"><circle cx="18" cy="17" r="8" fill="var(--amber)"></circle><g stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round"><path d="M18 3v4M4 17h4M8 7l2.8 2.8M28 7l-2.8 2.8"></path></g><path d="M14 40h22a8 8 0 0 0 0-16 11 11 0 0 0-21 3 6.5 6.5 0 0 0-1 13z" fill="var(--wx-cloud)"></path></symbol>
+  <symbol id="i-shower" viewBox="0 0 48 48"><circle cx="17" cy="14" r="7" fill="var(--amber)"></circle><path d="M12 33h24a7.5 7.5 0 0 0 0-15 10.5 10.5 0 0 0-20 3 6 6 0 0 0-4 12z" fill="var(--wx-cloud)"></path><g stroke="var(--wx-rain)" stroke-width="3" stroke-linecap="round"><path d="M18 38l-2 5M26 38l-2 5M34 38l-2 5"></path></g></symbol>
+</svg>
 
 <div class="wrap">
 <header class="top">
@@ -152,7 +164,7 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
   <p class="lead">오후에 완탕면과 레이디스 마켓을 보고 숙소에서 1시간 쉬어요. 저녁엔 스타의 거리, 청킹맨션을 지나 템플 스트리트에서 먹고 걸어서 돌아와요.</p>
 
   <div class="daybox">
-    <div class="wx"><b>날씨</b><span class="wxv">낮 28° · 밤 25°</span><span class="wxv">습도 70~80%</span><p>10월 평년값 기준이에요. 오후엔 끈적하고, 소나기가 올 수 있어요. 실내는 에어컨이 세서 얇은 겉옷이 있으면 좋아요. 야시장은 밤에도 덥고 습해요.</p></div>
+    <div class="wx"><b>날씨 (10월 평년 기준, 예보 아님)</b><div class="wxtop"><svg role="img" aria-label="구름 조금, 오후 소나기 가능"><use href="#i-shower"></use></svg><div><span class="wxsky">구름 조금, 오후 소나기 가능</span><span class="wxv">28° / 25°</span><span class="wxv">습도 70~80%</span></div></div><div class="wxparts"><div>오후<svg aria-hidden="true"><use href="#i-shower"></use></svg><b>소나기 가능</b></div><div>저녁<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>구름 조금</b></div><div>밤<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>25° 습함</b></div></div><p>10월 평년값 기준이에요. 오후엔 끈적하고, 소나기가 올 수 있어요. 실내는 에어컨이 세서 얇은 겉옷이 있으면 좋아요. 야시장은 밤에도 덥고 습해요.</p></div>
     <div class="wc"><b>화장실 계획</b><ul>
       <li><em>공항</em> 짐 찾고 공항철도 타기 전에 공항에서</li>
       <li><em>15:00</em> 호텔에서 꼭 다녀오기. Mak Man Kee 같은 국숫집은 화장실이 없거나 아주 좁아요</li>
@@ -262,7 +274,7 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
   <p class="lead">아침 딤섬을 먹고 숙소에서 1시간 채비한 뒤 홍콩섬으로 건너가요. 피크는 일몰에 맞춰 1시간 남짓만 있고, 내려와서 바로 저녁이에요.</p>
 
   <div class="daybox">
-    <div class="wx"><b>날씨</b><span class="wxv">시내 낮 28°</span><span class="wxv">피크 일몰 무렵 2~3° 더 낮음</span><span class="wxv">습도 70~80%</span><p>10월 평년값 기준이에요. 낮에 줄 서는 시간이 길어 땀이 나요. 피크는 바람이 세서 해 지면 서늘하니 얇은 겉옷을 챙기고, 구름이 끼면 야경이 안 보일 수 있어요. 아침에 날씨 앱으로 피크 쪽 시야를 확인하세요.</p></div>
+    <div class="wx"><b>날씨 (10월 평년 기준, 예보 아님)</b><div class="wxtop"><svg role="img" aria-label="대체로 맑음, 구름 조금"><use href="#i-partly"></use></svg><div><span class="wxsky">대체로 맑음, 구름 조금</span><span class="wxv">28° / 24°</span><span class="wxv">습도 70~80%</span></div></div><div class="wxparts"><div>오전<svg aria-hidden="true"><use href="#i-sun"></use></svg><b>맑음</b></div><div>오후<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>구름 조금</b></div><div>피크 일몰<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>2~3° 낮고 바람</b></div></div><p>10월 평년값 기준이에요. 낮에 줄 서는 시간이 길어 땀이 나요. 피크는 바람이 세서 해 지면 서늘하니 얇은 겉옷을 챙기고, 구름이 끼면 야경이 안 보일 수 있어요. 아침에 날씨 앱으로 피크 쪽 시야를 확인하세요.</p></div>
     <div class="wc"><b>화장실 계획</b><ul>
       <li><em>10:10</em> 숙소 채비 시간에. 딤섬집 화장실은 좁고 줄이 있어요</li>
       <li><em>11:25</em> 센트럴역(환승역)에서 내리면서</li>
@@ -393,7 +405,7 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
   <p class="lead">16:00 비행기라 12:30까지 공항에 도착해요. 3시간 넘게 여유를 둬서 공항에서 점심을 먹어도 됩니다.</p>
 
   <div class="daybox">
-    <div class="wx"><b>날씨</b><span class="wxv">아침 24~26°</span><span class="wxv">습도 75~85%</span><p>10월 평년값 기준이에요. 아침이라 걷기 무난하지만 습도는 높아요. 초이홍 아파트는 그늘이 적어 모자가 있으면 좋아요. 비가 오면 초이홍을 빼고 공항에 일찍 가세요.</p></div>
+    <div class="wx"><b>날씨 (10월 평년 기준, 예보 아님)</b><div class="wxtop"><svg role="img" aria-label="대체로 맑음"><use href="#i-partly"></use></svg><div><span class="wxsky">대체로 맑음</span><span class="wxv">26° / 24°</span><span class="wxv">습도 75~85%</span></div></div><div class="wxparts"><div>아침<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>구름 조금</b></div><div>오전<svg aria-hidden="true"><use href="#i-sun"></use></svg><b>맑음</b></div><div>공항<svg aria-hidden="true"><use href="#i-partly"></use></svg><b>구름 조금</b></div></div><p>10월 평년값 기준이에요. 아침이라 걷기 무난하지만 습도는 높아요. 초이홍 아파트는 그늘이 적어 모자가 있으면 좋아요. 비가 오면 초이홍을 빼고 공항에 일찍 가세요.</p></div>
     <div class="wc"><b>화장실 계획</b><ul>
       <li><em>07:45</em> 체크아웃 전 호텔에서</li>
       <li><em>09:00</em> Kam Wah Cafe엔 없다고 보고, 프린스에드워드역(환승역)에서 MTR 타기 전에</li>
