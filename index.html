@@ -106,6 +106,17 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 .cs{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round}
 .rt{fill:none;stroke-width:3.2;stroke-linecap:round}
 .dash{stroke-dasharray:1.5 7}
+.daybox{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.wx,.wc{border-radius:12px;padding:12px 14px;min-width:0;font-size:14px}
+.wx{background:var(--wait-bg);color:var(--ink)}
+.wc{background:var(--rest-bg);color:var(--ink)}
+.wx b,.wc b{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
+.wxv{display:inline-block;font-family:var(--font-num);font-weight:600;font-size:20px;line-height:1.2;margin-right:12px;font-variant-numeric:tabular-nums}
+.wx p{margin:6px 0 0;line-height:1.5}
+.wc ul{margin:0;padding:0;list-style:none}
+.wc li{padding:3px 0;line-height:1.45}
+.wc em{font-style:normal;font-family:var(--font-num);font-weight:600;font-size:15px;color:var(--c);margin-right:6px}
+@media (max-width:600px){.daybox{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:420px){.must{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
@@ -130,7 +141,7 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 </div>
 
 <nav class="days" aria-label="일정 바로가기"><div class="wrap">
-  <a href="#day1">1일차</a><a href="#day2">2일차</a><a href="#day3">3일차</a><a href="#prep">준비와 예약</a><a href="#check">체크리스트</a>
+  <a href="#day1">1일차</a><a href="#day2">2일차</a><a href="#day3">3일차</a><a href="#prep">준비와 예약</a><a href="#wc">화장실</a><a href="#check">체크리스트</a>
 </div></nav>
 
 <div class="wrap">
@@ -139,6 +150,18 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 <section id="day1" class="d1">
   <div class="dayhead"><span class="n">1</span><h2>완탕면, 레이디스 마켓, 쉬고 나서 하버와 야시장</h2></div>
   <p class="lead">오후에 완탕면과 레이디스 마켓을 보고 숙소에서 1시간 쉬어요. 저녁엔 스타의 거리, 청킹맨션을 지나 템플 스트리트에서 먹고 걸어서 돌아와요.</p>
+
+  <div class="daybox">
+    <div class="wx"><b>날씨</b><span class="wxv">낮 28° · 밤 25°</span><span class="wxv">습도 70~80%</span><p>10월 평년값 기준이에요. 오후엔 끈적하고, 소나기가 올 수 있어요. 실내는 에어컨이 세서 얇은 겉옷이 있으면 좋아요. 야시장은 밤에도 덥고 습해요.</p></div>
+    <div class="wc"><b>화장실 계획</b><ul>
+      <li><em>공항</em> 짐 찾고 공항철도 타기 전에 공항에서</li>
+      <li><em>15:00</em> 호텔에서 꼭 다녀오기. Mak Man Kee 같은 국숫집은 화장실이 없거나 아주 좁아요</li>
+      <li><em>17:00</em> 레이디스 마켓 노점엔 없어요. 몽콕역이나 근처 랭함 플레이스 쇼핑몰</li>
+      <li><em>18:10</em> 숙소 휴식 때</li>
+      <li><em>19:40</em> 스타의 거리 바로 옆 K11 MUSEA 쇼핑몰이 깨끗해요</li>
+      <li><em>21:00</em> 청킹맨션 건물 화장실은 피하고, MTR 타기 전 침사추이역에서. 템플 스트리트 노점과 솥밥집은 기대하지 않기</li>
+    </ul></div>
+  </div>
 
   <div class="map">
   <svg viewBox="0 0 400 420" role="img" aria-label="1일차 동선 지도">
@@ -237,6 +260,19 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 <section id="day2" class="d2">
   <div class="dayhead"><span class="n">2</span><h2>딤섬, 에스컬레이터, 에그타르트, 피크</h2></div>
   <p class="lead">아침 딤섬을 먹고 숙소에서 1시간 채비한 뒤 홍콩섬으로 건너가요. 피크는 일몰에 맞춰 1시간 남짓만 있고, 내려와서 바로 저녁이에요.</p>
+
+  <div class="daybox">
+    <div class="wx"><b>날씨</b><span class="wxv">시내 낮 28°</span><span class="wxv">피크 일몰 무렵 2~3° 더 낮음</span><span class="wxv">습도 70~80%</span><p>10월 평년값 기준이에요. 낮에 줄 서는 시간이 길어 땀이 나요. 피크는 바람이 세서 해 지면 서늘하니 얇은 겉옷을 챙기고, 구름이 끼면 야경이 안 보일 수 있어요. 아침에 날씨 앱으로 피크 쪽 시야를 확인하세요.</p></div>
+    <div class="wc"><b>화장실 계획</b><ul>
+      <li><em>10:10</em> 숙소 채비 시간에. 딤섬집 화장실은 좁고 줄이 있어요</li>
+      <li><em>11:25</em> 센트럴역(환승역)에서 내리면서</li>
+      <li><em>11:50</em> Bakehouse 줄은 한 명이 서고 교대로. 걸어서 3분 거리 타이쿤에 방문객 화장실이 있어요</li>
+      <li><em>13:00</em> 만모사원과 Kau Kee엔 없다고 생각하고 타이쿤에서 미리</li>
+      <li><em>15:00</em> 홍콩공원 공중화장실. 피크트램 줄은 1시간이 넘을 수 있으니 줄 서기 직전에 꼭</li>
+      <li><em>17:00</em> 피크타워 화장실 (홍콩 공중화장실 평가 1위로 뽑힌 곳)</li>
+      <li><em>19:00</em> Ho Lee Fook 식당 안</li>
+    </ul></div>
+  </div>
 
   <div class="map">
   <svg viewBox="0 0 400 470" role="img" aria-label="2일차 동선 지도">
@@ -356,6 +392,17 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
   <div class="dayhead"><span class="n">3</span><h2>파인애플번, 초이홍 아파트, 공항</h2></div>
   <p class="lead">16:00 비행기라 12:30까지 공항에 도착해요. 3시간 넘게 여유를 둬서 공항에서 점심을 먹어도 됩니다.</p>
 
+  <div class="daybox">
+    <div class="wx"><b>날씨</b><span class="wxv">아침 24~26°</span><span class="wxv">습도 75~85%</span><p>10월 평년값 기준이에요. 아침이라 걷기 무난하지만 습도는 높아요. 초이홍 아파트는 그늘이 적어 모자가 있으면 좋아요. 비가 오면 초이홍을 빼고 공항에 일찍 가세요.</p></div>
+    <div class="wc"><b>화장실 계획</b><ul>
+      <li><em>07:45</em> 체크아웃 전 호텔에서</li>
+      <li><em>09:00</em> Kam Wah Cafe엔 없다고 보고, 프린스에드워드역(환승역)에서 MTR 타기 전에</li>
+      <li><em>10:00</em> 초이홍 아파트 주변엔 마땅한 곳이 없어요. 프린스에드워드역에서 미리</li>
+      <li><em>11:15</em> 호텔에서 짐 찾을 때</li>
+      <li><em>11:50</em> 구룡역(공항철도역)과 공항은 화장실이 넉넉해요</li>
+    </ul></div>
+  </div>
+
   <div class="map">
   <svg viewBox="0 0 400 380" role="img" aria-label="3일차 동선 지도">
     <defs><marker id="m3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B7A4B"></path></marker></defs>
@@ -420,65 +467,137 @@ footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
 <section id="prep" class="info">
   <h2>준비와 예약</h2>
 
-  <div class="box warn"><h3>날짜 확인할 것</h3>
+  <div class="box warn"><h3>여행 날짜가 정해지면 확인할 것</h3>
     <ul>
-      <li>Kau Kee는 일요일에 쉬어요. 2일차가 일요일이면 Tsim Chai Kee로 바꾸세요.</li>
+      <li>Kau Kee는 일요일에 쉬어요. 2일차가 일요일이면 Wellington St의 Tsim Chai Kee로 바꾸세요.</li>
       <li>피크트램은 주말과 공휴일에 대기가 가장 길어요. 2일차가 주말이면 15:30까지 승강장에 가서 줄을 서세요.</li>
-      <li>레이저쇼는 비나 강풍이 있으면 취소돼요.</li>
+      <li>일몰 시각에 맞춰 피크트램 줄서기 시간을 조정하세요. 10월 초 18:05쯤, 10월 말 17:50쯤이에요.</li>
+      <li>날씨는 출발 9일 전부터 홍콩 천문대(HKO) 9일 예보로 확인하세요. 이 페이지의 날씨는 10월 평년값이에요.</li>
+      <li>10월은 태풍이 올 수 있는 끝 무렵이에요. 태풍 신호 8호가 걸리면 가게와 페리, 피크트램이 멈추고 MTR만 다녀요.</li>
     </ul></div>
 
-  <div class="box"><h3>미리 예약</h3>
+  <div class="box"><h3>미리 예약하고 살 것</h3>
     <div class="tablewrap"><table>
-      <tr><th>무엇</th><th>언제</th><th>방법</th></tr>
-      <tr><td>Ho Lee Fook</td><td>2일차 19:00</td><td>미슐랭 가이드 사이트 온라인 예약</td></tr>
-      <tr><td>피크트램 + 스카이테라스 428</td><td>2일차</td><td>공식 사이트나 Klook, KKday</td></tr>
-      <tr><td>공항철도 왕복</td><td>1일차, 3일차</td><td>Klook 등 QR 티켓, 또는 옥토퍼스</td></tr>
+      <tr><th>무엇</th><th>언제 쓰나</th><th>방법</th></tr>
+      <tr><td>Ho Lee Fook 저녁</td><td>2일차 19:00</td><td>미슐랭 가이드 사이트 예약. 거위구이를 미리 남겨 달라고 메모</td></tr>
+      <tr><td>피크트램 + 스카이테라스 428</td><td>2일차 16:00</td><td>공식 사이트, Klook, KKday. 미리 사도 탑승 줄은 따로 서요</td></tr>
+      <tr><td>공항철도 왕복</td><td>1일차, 3일차</td><td>Klook 등 QR 티켓이 현장보다 싸요. 옥토퍼스로 찍어도 돼요</td></tr>
+      <tr><td>호텔 짐 보관</td><td>3일차 07:45~11:15</td><td>Page148에 체크아웃 후 짐 보관 가능한지 메일로 확인</td></tr>
+      <tr><td>도심 체크인</td><td>3일차 11:50</td><td>항공사가 구룡역 도심 체크인을 하는지 확인. 되면 짐을 거기서 부쳐요</td></tr>
+      <tr><td>데이터</td><td>도착 즉시</td><td>eSIM이나 로밍. 지도와 번역을 계속 써서 하루 1~2GB는 써요</td></tr>
+      <tr><td>여행자 보험</td><td>출발 전</td><td>휴대품 도난과 항공 지연 포함 상품</td></tr>
     </table></div></div>
+
+  <div class="box"><h3>입국과 서류</h3>
+    <ul>
+      <li>한국 여권은 홍콩 무비자 90일이에요. 여권 만료일이 넉넉한지만 확인하세요.</li>
+      <li>e-티켓, 호텔 예약 확인서, 레스토랑 예약 화면은 오프라인으로 볼 수 있게 캡처해 두세요.</li>
+    </ul></div>
 
   <div class="box"><h3>옥토퍼스 카드</h3>
     <ul>
-      <li>MTR, 스타페리, 피크트램, 트램, 편의점에서 다 써요. 1인 1장.</li>
+      <li>MTR, 스타페리, 피크트램, 트램, 편의점, 일부 택시에서 써요. 1인 1장이고, 한 장을 둘이 찍을 수 없어요.</li>
       <li>아이폰이면 출발 전에 Octopus for Tourists 앱으로 Apple Wallet에 추가해요. 해외 카드로 충전하고, 남은 돈은 앱에서 환불 신청.</li>
       <li>실물 카드는 공항 도착층 MTR 고객센터에서 HK$150(보증금 50 포함).</li>
+      <li>1인 HK$200 정도 충전하면 2박 3일 교통비로 넉넉해요(공항철도를 옥토퍼스로 내면 더 필요).</li>
     </ul></div>
 
-  <div class="box"><h3>스타페리</h3>
+  <div class="box"><h3>이동 요령</h3>
     <ul>
-      <li>예약이나 좌석 지정 없어요. 개찰구에서 옥토퍼스를 찍고 타요.</li>
-      <li>06:30~23:30 운항, 9분. 위층 성인 평일 HK$5.0, 주말 HK$6.5.</li>
+      <li>MTR 출구는 A1, B2처럼 번호가 있어요. 일정에 적힌 출구로 나가면 걷는 거리가 줄어요.</li>
+      <li>에스컬레이터는 오른쪽에 서고 왼쪽은 걸어가는 사람용이에요.</li>
+      <li>스타페리는 예약과 좌석 지정이 없어요. 06:30~23:30, 9분. 위층 평일 HK$5.0, 주말 HK$6.5.</li>
+      <li>택시는 빨간 차가 시내 택시예요. 기사에게 가게 이름을 한자로 보여 주면 빨라요. 현금이나 옥토퍼스를 준비하고, 카드는 안 되는 차가 많아요.</li>
+      <li>미드레벨 에스컬레이터는 10:00부터 올라가는 방향이에요.</li>
     </ul></div>
 
-  <div class="box"><h3>현금이 필요한 곳</h3>
+  <div class="box"><h3>돈과 결제</h3>
     <ul>
-      <li>Kau Kee는 현금만. Mak Man Kee, 야시장 노점도 현금을 준비하세요.</li>
-      <li>둘이 합쳐 HK$1,000 정도면 충분해요. 모자라면 청킹맨션 환전소에서.</li>
+      <li>쇼핑몰과 레스토랑은 카드가 돼요. Kau Kee, Mak Man Kee, 야시장 노점, 차찬텡은 현금을 준비하세요.</li>
+      <li>둘이 합쳐 HK$1,000 정도면 충분해요. 모자라면 청킹맨션 1층 환전소가 환율이 좋아요.</li>
+      <li>앉아서 먹는 식당은 계산서에 서비스 요금 10%가 붙어요. 따로 팁은 안 줘도 돼요.</li>
     </ul></div>
+
+  <div class="box"><h3>전기와 앱</h3>
+    <ul>
+      <li>220V에 영국식 3구 콘센트(G 타입)예요. 한국 플러그는 어댑터가 필요해요.</li>
+      <li>미리 깔아 둘 앱: Google 지도, MTR Mobile, MyObservatory(날씨, 태풍), Octopus for Tourists, OpenRice(식당), Uber, Klook.</li>
+    </ul></div>
+
+  <div class="box"><h3>비상 연락</h3>
+    <ul>
+      <li>홍콩 경찰, 구급, 화재: 999</li>
+      <li>외교부 영사콜센터(24시간): +82-2-3210-0404</li>
+      <li>숙소 Page148: +852 3844 8888</li>
+    </ul></div>
+</section>
+
+<!-- ===================== TOILET ===================== -->
+<section id="wc" class="info">
+  <h2>화장실 전략</h2>
+  <div class="box"><h3>원칙</h3>
+    <ul>
+      <li>노포, 차찬텡, 국숫집, 야시장 노점은 화장실이 없거나 주방을 지나가야 해요. 이런 곳에 가기 전에 먼저 다녀오세요.</li>
+      <li>쇼핑몰 화장실이 가장 깨끗하고 찾기 쉬워요. 동선 위에 K11 MUSEA, 하버시티, 랭함 플레이스, IFC, 엘리먼츠가 있어요.</li>
+      <li>MTR은 환승역(몽콕, 프린스에드워드, 침사추이, 센트럴, 야우마테이) 위주로 화장실이 있어요. 조던역 같은 일반역은 없을 수 있어요. 역무원에게 "洗手間(싸이사우깐)"이라고 물어보면 알려줘요.</li>
+      <li>공중화장실 표지는 公廁예요. 휴지가 없는 곳이 있어서 휴대용 티슈와 물티슈를 챙기세요.</li>
+      <li>줄이 긴 곳(Bakehouse, 피크트램)은 한 명씩 교대로 다녀오세요.</li>
+    </ul></div>
+  <p class="tip" style="color:var(--sub)">일자별 화장실 위치는 각 일정 위쪽 "화장실 계획"에 시간순으로 적어 뒀어요.</p>
 </section>
 
 <!-- ===================== CHECKLIST ===================== -->
 <section id="check" class="info">
   <h2>체크리스트</h2>
-  <div class="box check" id="checklist">
-    <label><input type="checkbox" id="c2" data-k="c2"><span>Ho Lee Fook 2일차 19:00 예약, 거위구이 미리 요청</span></label>
-    <label><input type="checkbox" id="c3" data-k="c3"><span>피크트램 티켓 사전 구매</span></label>
-    <label><input type="checkbox" id="c4" data-k="c4"><span>옥토퍼스 준비 (앱 또는 공항에서 실물)</span></label>
-    <label><input type="checkbox" id="c5" data-k="c5"><span>공항철도 왕복 티켓</span></label>
-    <label><input type="checkbox" id="c6" data-k="c6"><span>eSIM 또는 로밍</span></label>
-    <label><input type="checkbox" id="c7" data-k="c7"><span>홍콩달러 현금 HK$1,000</span></label>
-    <label><input type="checkbox" id="c8" data-k="c8"><span>피크용 겉옷, 접이식 우산</span></label>
-    <label><input type="checkbox" id="c9" data-k="c9"><span>항공사 도심 체크인(구룡역) 가능 여부 확인</span></label>
+
+  <div class="box check"><h3>출발 2주 전</h3>
+    <label><input type="checkbox" id="k1" data-k="k1"><span>Ho Lee Fook 2일차 19:00 예약, 거위구이 요청</span></label>
+    <label><input type="checkbox" id="k2" data-k="k2"><span>피크트램 + 스카이테라스 티켓</span></label>
+    <label><input type="checkbox" id="k3" data-k="k3"><span>공항철도 왕복 QR 티켓</span></label>
+    <label><input type="checkbox" id="k4" data-k="k4"><span>호텔에 3일차 짐 보관 문의</span></label>
+    <label><input type="checkbox" id="k5" data-k="k5"><span>항공사 구룡역 도심 체크인 가능 여부</span></label>
+    <label><input type="checkbox" id="k6" data-k="k6"><span>여행자 보험 가입</span></label>
+  </div>
+
+  <div class="box check"><h3>출발 2~3일 전</h3>
+    <label><input type="checkbox" id="k7" data-k="k7"><span>eSIM 구매하거나 로밍 신청</span></label>
+    <label><input type="checkbox" id="k8" data-k="k8"><span>Octopus for Tourists 앱으로 카드 추가 (아이폰)</span></label>
+    <label><input type="checkbox" id="k9" data-k="k9"><span>홍콩달러 현금 HK$1,000 환전</span></label>
+    <label><input type="checkbox" id="k10" data-k="k10"><span>HKO 9일 예보와 태풍 소식 확인</span></label>
+    <label><input type="checkbox" id="k11" data-k="k11"><span>앱 설치: Google 지도, MTR Mobile, MyObservatory, OpenRice, Uber, Klook</span></label>
+    <label><input type="checkbox" id="k12" data-k="k12"><span>예약 확인서와 e-티켓 캡처</span></label>
+  </div>
+
+  <div class="box check"><h3>짐</h3>
+    <label><input type="checkbox" id="k13" data-k="k13"><span>여권</span></label>
+    <label><input type="checkbox" id="k14" data-k="k14"><span>G 타입(영국식 3구) 어댑터</span></label>
+    <label><input type="checkbox" id="k15" data-k="k15"><span>보조배터리 (기내 반입만 돼요)</span></label>
+    <label><input type="checkbox" id="k16" data-k="k16"><span>얇은 겉옷 (피크 바람, 실내 에어컨)</span></label>
+    <label><input type="checkbox" id="k17" data-k="k17"><span>접이식 우산이나 우비</span></label>
+    <label><input type="checkbox" id="k18" data-k="k18"><span>편한 운동화 (계단과 오르막이 많아요)</span></label>
+    <label><input type="checkbox" id="k19" data-k="k19"><span>휴대용 티슈, 물티슈, 손소독제</span></label>
+    <label><input type="checkbox" id="k20" data-k="k20"><span>모자, 선크림</span></label>
+    <label><input type="checkbox" id="k21" data-k="k21"><span>작은 크로스백 (야시장과 줄 서는 곳 소매치기 대비)</span></label>
+    <label><input type="checkbox" id="k22" data-k="k22"><span>상비약 (소화제, 두통약, 밴드)</span></label>
+  </div>
+
+  <div class="box check"><h3>현지에서</h3>
+    <label><input type="checkbox" id="k23" data-k="k23"><span>1일차 공항에서 옥토퍼스 확인하고 공항철도 타기</span></label>
+    <label><input type="checkbox" id="k24" data-k="k24"><span>2일차 아침 피크 쪽 날씨와 시야 확인</span></label>
+    <label><input type="checkbox" id="k25" data-k="k25"><span>3일차 체크아웃 때 짐 보관 맡기기</span></label>
+    <label><input type="checkbox" id="k26" data-k="k26"><span>3일차 공항에서 옥토퍼스 잔액 쓰거나 환불</span></label>
   </div>
   <p class="tip" id="savenote" style="color:var(--sub);font-size:13px">체크한 항목은 이 기기에 저장돼요.</p>
 </section>
 
-<footer>지도는 단순화한 그림이라 실제 거리 비율과 달라요. 대기 시간은 최근 후기를 바탕으로 잡은 예상치예요.</footer>
+<footer>지도는 단순화한 그림이라 실제 거리 비율과 달라요. 대기 시간은 최근 후기를 바탕으로 잡은 예상치이고, 날씨는 홍콩 천문대 10월 평년값(1991~2020: 평균 최고 28.1°, 최저 23.9°, 습도 73%)이에요.</footer>
 </div>
 
 <script>
 (function(){
   var KEY='hk-trip-checklist', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
-  document.querySelectorAll('#checklist input').forEach(function(b){
+  document.querySelectorAll('.check input').forEach(function(b){
     b.checked=!!state[b.dataset.k];
     b.addEventListener('change',function(){
       state[b.dataset.k]=b.checked;
