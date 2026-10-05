@@ -1,5 +1,5 @@
 /* 홍콩 여행앱 service worker — offline cache-first */
-var CACHE = "hk-trip-v15";
+var CACHE = "hk-trip-v16";
 var ASSETS = [
   "./",
   "./index.html",
