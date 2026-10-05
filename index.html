@@ -13,55 +13,72 @@
 <title>홍콩 2박 3일 일정표와 지도</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;900&family=Barlow+Condensed:wght@500;600&display=swap">
 <style>
+/* layout: one long phone page; per day a schematic map, then a timeline where every stop shows its expected wait */
 :root{
   --paper:#F5F8F7; --card:#FFFFFF; --ink:#10201C; --sub:#51635E; --line:#DCE5E2;
   --ferry:#0B5D4B; --d1:#D7263D; --d2:#1F5FBF; --d3:#0B7A4B; --amber:#F2A900; --amber-bg:#FFF6DC;
+  --wait-bg:#EEF1FF; --wait-ink:#33408F; --rest-bg:#EAF4EF;
+  --map-land:#F1F4F1; --map-sea:#CFE0EA; --map-hill:#D6E5CF; --map-road:#E2E8E4; --map-ink:#10201C; --map-sub:#51635E; --map-halo:#F3F6F4;
+  --font-body:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-num:'Barlow Condensed','Arial Narrow',sans-serif;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A}
+  :root:not([data-theme="light"]){--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--rest-bg:#18302A;color-scheme:dark}
 }
-:root[data-theme="dark"]{--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A}
+:root[data-theme="dark"]{--paper:#0E1614;--card:#16211E;--ink:#EAF1EF;--sub:#9DB0AA;--line:#27352F;--ferry:#4FC3A6;--d1:#FF6B7D;--d2:#7FB0FF;--d3:#5CD69C;--amber-bg:#33290A;--wait-bg:#1E2440;--wait-ink:#B9C2FF;--rest-bg:#18302A;color-scheme:dark}
 *{box-sizing:border-box}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
-.wrap{max-width:760px;margin:0 auto;padding:0 18px}
-header.top{padding:34px 0 22px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding-inline:18px}
+header.top{padding-block:34px 22px}
 header.top h1{margin:0;font-weight:900;font-size:clamp(44px,13vw,84px);line-height:1;letter-spacing:-.04em;color:var(--ferry)}
 header.top .sub{margin:14px 0 0;color:var(--sub);font-size:15px}
+.must{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:18px}
+.must div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.must b{display:block;font-size:15px}
+.must span{font-size:13px;color:var(--sub)}
+.must i{font-style:normal;font-family:var(--font-num);font-weight:600;font-size:14px;padding:0 6px;border-radius:3px;color:#fff;margin-right:6px}
 .strip{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;font-weight:700;font-size:14px}
 .strip span{padding:5px 12px;border-radius:4px;color:#fff}
 nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:2px solid var(--ink)}
-nav.days .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+nav.days .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px}
 nav.days a{flex:none;padding:8px 14px;border-radius:4px;text-decoration:none;color:var(--ink);font-weight:700;font-size:15px}
 nav.days a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 nav.days a:hover{background:var(--line)}
-section{padding:34px 0 8px}
+section{padding-block:34px 8px}
 .dayhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
-.dayhead .n{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:54px;line-height:1}
-.dayhead h2{margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em}
+.dayhead .n{font-family:var(--font-num);font-weight:600;font-size:54px;line-height:1}
+.dayhead h2{margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em;text-wrap:balance}
 .lead{margin:0 0 16px;color:var(--sub);font-size:15px}
-.map{background:#EEF3F1;border-radius:14px;overflow:hidden;margin:0 0 22px;border:1px solid var(--line)}
+.map{background:var(--map-land);border-radius:14px;overflow:hidden;margin:0 0 22px;border:1px solid var(--line)}
 .map svg{display:block;width:100%;height:auto}
-.legend{display:flex;gap:16px;padding:8px 14px 12px;font-size:13px;color:#51635E;background:#EEF3F1}
-.legend i{display:inline-block;width:26px;height:0;border-top:3px solid #51635E;vertical-align:middle;margin-right:6px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:8px 14px 12px;font-size:13px;color:var(--map-sub);background:var(--map-land)}
+.legend i{display:inline-block;width:26px;height:0;border-top:3px solid var(--map-sub);vertical-align:middle;margin-right:6px}
 .legend i.dash{border-top-style:dotted}
 ol.tl{list-style:none;margin:0;padding:0;position:relative}
 ol.tl::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:3px;background:var(--c);opacity:.25}
-li.stop{position:relative;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:0 0 18px}
-li.stop .no{width:32px;height:32px;border-radius:16px;background:var(--c);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+li.stop{position:relative;display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;padding-bottom:16px}
+li.stop .no{width:32px;height:32px;border-radius:16px;background:var(--c);color:#fff;font-family:var(--font-num);font-weight:600;font-size:18px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
 li.stop .no.h{background:var(--ink);color:var(--paper)}
-li.stop .body{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+li.stop .body{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
 li.stop .hd{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-li.stop time{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:24px;color:var(--c);line-height:1}
+li.stop time{font-family:var(--font-num);font-weight:600;font-size:24px;color:var(--c);line-height:1;font-variant-numeric:tabular-nums}
+li.stop time small{font-size:16px;opacity:.75}
 li.stop h3{margin:0;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.where{margin:4px 0 0;color:var(--sub);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--line);color:var(--sub)}
+.chip.wait{background:var(--wait-bg);color:var(--wait-ink)}
+.chip.must{background:var(--amber-bg);color:var(--ink);border:1px solid var(--amber)}
+.chip.book{background:var(--c);color:#fff}
+.where{margin:6px 0 0;color:var(--sub);font-size:14px}
 .eat{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .eat li{background:var(--amber-bg);border:1px solid var(--amber);border-radius:4px;padding:3px 9px;font-size:14px;font-weight:500}
-.eatlabel{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--sub)}
 .tip{margin:10px 0 0;font-size:14px}
-li.move{position:relative;padding:0 0 18px 46px;color:var(--sub);font-size:14px}
+li.move{position:relative;padding:0 0 16px 46px;color:var(--sub);font-size:14px}
+li.rest{position:relative;padding:0 0 16px 46px}
+li.rest span{display:block;background:var(--rest-bg);border-radius:8px;padding:8px 12px;font-size:14px;color:var(--ink)}
 .d1{--c:var(--d1)} .d2{--c:var(--d2)} .d3{--c:var(--d3)}
 .d1 .n{color:var(--d1)} .d2 .n{color:var(--d2)} .d3 .n{color:var(--d3)}
 .info h2{margin:0 0 14px;font-size:26px;font-weight:900;letter-spacing:-.02em}
@@ -78,15 +95,18 @@ li.move{position:relative;padding:0 0 18px 46px;color:var(--sub);font-size:14px}
 table{border-collapse:collapse;width:100%;font-size:15px;min-width:420px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:13px;color:var(--sub);font-weight:700}
-footer{padding:26px 0 40px;color:var(--sub);font-size:13px}
-/* map text */
-.nm{font:700 12.5px 'Gothic A1','Apple SD Gothic Neo',sans-serif;fill:#10201C;paint-order:stroke;stroke:#F3F6F4;stroke-width:4px;stroke-linejoin:round}
-.tm{font:500 11px 'Gothic A1','Apple SD Gothic Neo',sans-serif;fill:#51635E;paint-order:stroke;stroke:#F3F6F4;stroke-width:4px;stroke-linejoin:round}
-.num{font:600 14px 'Barlow Condensed',sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:central}
-.sea{font:500 12px 'Gothic A1',sans-serif;fill:#4E7F9E;letter-spacing:3px}
+footer{padding-block:26px 40px;color:var(--sub);font-size:13px}
+/* map text: maps keep one light palette in both themes */
+.nm{font:700 12px var(--font-body);fill:var(--map-ink);paint-order:stroke;stroke:var(--map-halo);stroke-width:4px;stroke-linejoin:round}
+.tm{font:500 11px var(--font-body);fill:var(--map-sub);paint-order:stroke;stroke:var(--map-halo);stroke-width:4px;stroke-linejoin:round}
+.num{font:600 14px var(--font-num);fill:#fff;text-anchor:middle;dominant-baseline:central}
+.pill{font:600 12.5px var(--font-num);fill:#fff;text-anchor:middle;dominant-baseline:central}
+.area{font:700 10.5px var(--font-body);fill:#8A9A94;letter-spacing:.08em}
+.sea{font:500 12px var(--font-body);fill:#4E7F9E;letter-spacing:3px}
 .cs{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round}
 .rt{fill:none;stroke-width:3.2;stroke-linecap:round}
 .dash{stroke-dasharray:1.5 7}
+@media (max-width:420px){.must{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -94,8 +114,18 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:13px}
 <div class="wrap">
 <header class="top">
   <h1>홍콩<br>2박 3일</h1>
-  <p class="sub">숙소는 Page148(조던, Austin Rd 148). 1일차 13:00 도착, 3일차 16:00 출국 기준으로 짠 일정이에요.</p>
-  <div class="strip"><span style="background:#D7263D">1일차 구룡 야경</span><span style="background:#1F5FBF">2일차 홍콩섬</span><span style="background:#0B7A4B">3일차 몽콕과 공항</span></div>
+  <p class="sub">숙소 Page148(조던). 1일차 13:00 도착, 3일차 16:00 출국. 먹는 곳 위주로 짜고, 줄 서는 시간을 일정에 넣었어요.</p>
+  <div class="must">
+    <div><i style="background:var(--d2)">2일차</i><b>딤섬</b><span>One Dim Sum 침사추이점, 09:00 오픈런</span></div>
+    <div><i style="background:var(--d2)">2일차</i><b>에그타르트</b><span>Bakehouse 소호점</span></div>
+    <div><i style="background:var(--d1)">1일차</i><b>완탕면</b><span>Mak Man Kee 조던</span></div>
+    <div><i style="background:var(--d1)">1일차</i><b>북경오리</b><span>Peking Garden, 창가석 예약</span></div>
+    <div><i style="background:var(--d2)">2일차</i><b>미드레벨 에스컬레이터</b><span>10:00 이후 상행</span></div>
+    <div><i style="background:var(--d2)">2일차</i><b>피크트램, 빅토리아 피크</b><span>일몰과 야경</span></div>
+    <div><i style="background:var(--d1)">1일차</i><b>레이디스 마켓</b><span>오후, 문 다 연 시간</span></div>
+    <div><i style="background:var(--d1)">1일차</i><b>템플 스트리트</b><span>밤 야시장</span></div>
+  </div>
+  <div class="strip"><span style="background:#D7263D">1일차 구룡</span><span style="background:#1F5FBF">2일차 홍콩섬</span><span style="background:#0B7A4B">3일차 초이홍과 공항</span></div>
 </header>
 </div>
 
@@ -107,240 +137,289 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:13px}
 
 <!-- ===================== DAY 1 ===================== -->
 <section id="day1" class="d1">
-  <div class="dayhead"><span class="n">1</span><h2>구룡 야경과 야시장</h2></div>
-  <p class="lead">짐을 풀고 숙소 주변을 걸어서 한 바퀴 돕니다. 전 구간 도보예요.</p>
+  <div class="dayhead"><span class="n">1</span><h2>완탕면, 레이디스 마켓, 북경오리, 야시장</h2></div>
+  <p class="lead">도착 날이라 공항에서 호텔까지 2시간을 잡았어요. 저녁은 예약해서 대기 없이 먹고, 나머지는 걸어서 이어집니다.</p>
 
   <div class="map">
-  <svg viewBox="0 0 400 405" role="img" aria-label="1일차 동선 지도">
+  <svg viewBox="0 0 400 420" role="img" aria-label="1일차 동선 지도">
     <defs><marker id="m1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#D7263D"></path></marker></defs>
-    <rect width="400" height="405" fill="#F1F4F1"></rect>
-    <rect y="338" width="400" height="67" fill="#CFE0EA"></rect>
-    <path d="M0 350 Q20 344 40 350 T80 350 T120 350 T160 350 T200 350 T240 350 T280 350 T320 350 T360 350 T400 350" fill="none" stroke="#BCD3E0" stroke-width="1.5"></path>
-    <path d="M200 0 L200 338" stroke="#E2E8E4" stroke-width="9"></path>
-    <rect x="215" y="200" width="50" height="34" rx="8" fill="#D6E5CF"></rect>
-    <g class="cs"><path d="M265 110 L112 110"></path><path d="M92 127 L65 284"></path><path d="M75 305 L114 317"></path><path d="M147 322 L283 325"></path><path d="M296 309 Q250 180 199 61"></path><path d="M205 53 L268 99"></path></g>
-    <g class="rt" stroke="#D7263D">
-      <path d="M265 110 L112 110" marker-end="url(#m1)"></path>
-      <path d="M92 127 L65 284" marker-end="url(#m1)"></path>
-      <path d="M75 305 L114 317" marker-end="url(#m1)"></path>
-      <path d="M147 322 L283 325" marker-end="url(#m1)"></path>
-      <path d="M296 309 Q250 180 199 61" marker-end="url(#m1)"></path>
-      <path d="M205 53 L268 99" marker-end="url(#m1)"></path>
+    <rect width="400" height="420" fill="#F1F4F1"></rect>
+    <rect y="372" width="400" height="48" fill="#CFE0EA"></rect>
+    <path d="M0 382 Q20 376 40 382 T80 382 T120 382 T160 382 T200 382 T240 382 T280 382 T320 382 T360 382 T400 382" fill="none" stroke="#BCD3E0" stroke-width="1.5"></path>
+    <path d="M262 0 L262 372" stroke="#E2E8E4" stroke-width="9"></path>
+    <text class="area" x="14" y="24">몽콕</text>
+    <text class="area" x="14" y="200">조던</text>
+    <text class="area" x="14" y="300">침사추이</text>
+    <text class="area" x="268" y="24">네이선 로드</text>
+    <g class="cs">
+      <path d="M302 214 L251 218"></path><path d="M220 66 L170 88"></path><path d="M270 336 L278 293"></path>
+      <path d="M173 360 Q262 395 316 362"></path><path d="M150 176 L290 207"></path>
     </g>
-    <rect x="265" y="98" width="72" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
-    <text x="301" y="110.5" text-anchor="middle" dominant-baseline="central" style="font:600 13px 'Barlow Condensed',sans-serif;fill:#fff">Page148</text>
-    <g fill="#D7263D" stroke="#fff" stroke-width="2"><circle cx="95" cy="110" r="12"></circle><circle cx="62" cy="300" r="12"></circle><circle cx="130" cy="322" r="12"></circle><circle cx="300" cy="325" r="12"></circle><circle cx="192" cy="46" r="12"></circle></g>
-    <text class="num" x="95" y="110.5">1</text><text class="num" x="62" y="300.5">2</text><text class="num" x="130" y="322.5">3</text><text class="num" x="300" y="325.5">4</text><text class="num" x="192" y="46.5">5</text>
-    <text class="nm" x="95" y="76" text-anchor="middle">Mak Man Kee</text><text class="tm" x="95" y="90" text-anchor="middle">15:15 완탕면</text>
-    <text class="nm" x="84" y="280">% Arabica, 하버시티</text><text class="tm" x="84" y="294">16:30</text>
-    <text class="nm" x="130" y="357" text-anchor="middle">Peking Garden</text><text class="tm" x="130" y="371" text-anchor="middle">18:00 베이징덕</text>
-    <text class="nm" x="300" y="360" text-anchor="middle">스타의 거리</text><text class="tm" x="300" y="374" text-anchor="middle">20:00 레이저쇼</text>
-    <text class="nm" x="172" y="38" text-anchor="end">템플 스트리트, Kai Kai</text><text class="tm" x="172" y="52" text-anchor="end">21:00 야식과 디저트</text>
-    <text class="sea" x="200" y="396" text-anchor="middle">빅토리아 하버</text>
+    <g class="rt" stroke="#D7263D">
+      <path d="M302 214 L251 218" marker-end="url(#m1)"></path>
+      <path class="dash" d="M235 205 L235 80" marker-end="url(#m1)"></path>
+      <path d="M220 66 L170 88" marker-end="url(#m1)"></path>
+      <path class="dash" d="M146 104 Q60 230 148 336" marker-end="url(#m1)"></path>
+      <path d="M173 360 Q262 395 316 362" marker-end="url(#m1)"></path>
+      <path d="M326 342 L292 296" marker-end="url(#m1)"></path>
+      <path class="dash" d="M268 268 L172 180" marker-end="url(#m1)"></path>
+      <path d="M150 176 L290 207" marker-end="url(#m1)"></path>
+    </g>
+    <rect x="290" y="198" width="72" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
+    <text class="pill" x="326" y="210.5">Page148</text>
+    <g fill="#D7263D" stroke="#fff" stroke-width="2">
+      <circle cx="235" cy="218" r="12"></circle><circle cx="235" cy="64" r="12"></circle><circle cx="156" cy="94" r="12"></circle>
+      <circle cx="158" cy="350" r="12"></circle><circle cx="330" cy="356" r="12"></circle><circle cx="282" cy="282" r="12"></circle><circle cx="160" cy="170" r="12"></circle>
+    </g>
+    <text class="num" x="235" y="218.5">1</text><text class="num" x="235" y="64.5">2</text><text class="num" x="156" y="94.5">3</text>
+    <text class="num" x="158" y="350.5">4</text><text class="num" x="330" y="356.5">5</text><text class="num" x="282" y="282.5">6</text><text class="num" x="160" y="170.5">7</text>
+    <text class="nm" x="235" y="246" text-anchor="middle">Mak Man Kee</text><text class="tm" x="235" y="260" text-anchor="middle">15:50 완탕면</text>
+    <text class="nm" x="253" y="60">레이디스 마켓</text><text class="tm" x="253" y="74">17:00</text>
+    <text class="nm" x="138" y="91" text-anchor="end">Silk. 밀크티</text><text class="tm" x="138" y="105" text-anchor="end">17:50</text>
+    <text class="nm" x="140" y="330" text-anchor="end">Peking Garden</text><text class="tm" x="140" y="344" text-anchor="end">18:45 북경오리</text>
+    <text class="nm" x="388" y="336" text-anchor="end">스타의 거리</text><text class="tm" x="388" y="322" text-anchor="end">20:10</text>
+    <text class="nm" x="300" y="280">청킹맨션</text><text class="tm" x="300" y="294">20:40</text>
+    <text class="nm" x="140" y="160" text-anchor="end">템플 스트리트</text><text class="tm" x="140" y="174" text-anchor="end">21:20 · Kai Kai</text>
+    <text class="tm" x="243" y="142">MTR</text>
+    <text class="tm" x="58" y="226">MTR</text>
+    <text class="sea" x="200" y="408" text-anchor="middle">빅토리아 하버</text>
   </svg>
-  <div class="legend"><span><i></i>도보</span><span><i class="dash"></i>페리, 트램, MTR</span></div>
+  <div class="legend"><span><i></i>도보</span><span><i class="dash"></i>MTR</span></div>
   </div>
 
   <ol class="tl">
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>13:00</time><h3>홍콩 공항 도착</h3></div>
-      <p class="tip">입국 후 도착층에서 옥토퍼스 카드를 준비하고, 공항철도로 구룡역까지 약 22분. 구룡역에서 호텔은 택시로 5분이에요.</p></div></li>
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>14:45</time><h3>Page148 체크인</h3></div><p class="where">Austin Rd 148, 조던역 도보 6분</p></div></li>
-    <li class="move">도보 7분</li>
-    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>15:15</time><h3>Mak Man Kee 麥文記</h3></div>
-      <p class="where">조던 Parkes St 51. 12시부터 자정 넘어서까지, 쉬는 날 없음</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>새우 완탕면 鮮蝦雲吞麵</li><li>족발 국수 南乳豬手麵</li><li>새우알 비빔면 蝦子撈麵</li></ul>
-      <p class="tip">양이 작아요. 저녁이 베이징덕이니 한 그릇씩만 드세요. 현금을 준비하세요.</p></div></li>
-    <li class="move">도보 18분, 네이선 로드와 캔톤 로드를 따라 남쪽으로</li>
-    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>16:30</time><h3>% Arabica 스타페리 선착장점, 하버시티</h3></div>
-      <p class="where">침사추이 스타페리 선착장 2층. 19:00에 닫아요</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>교토 라떼</li><li>스페니시 라떼</li></ul>
-      <p class="tip">커피를 들고 시계탑과 해안 산책로를 걷고, 하버시티를 구경하세요.</p></div></li>
-    <li class="move">도보 1분</li>
-    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>18:00</time><h3>Peking Garden 北京樓 스타하우스점</h3></div>
-      <p class="where">Star House 3층. 저녁 17:30~22:30, 예약 +852 2735 8211</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>베이징덕 반 마리</li><li>샤오롱바오</li><li>탄탄면</li><li>볶음 채소 하나</li></ul>
-      <p class="tip">예약할 때 하버 뷰 창가석을 요청하세요. 창가에 앉으면 20시 레이저쇼가 자리에서 보여요.</p></div></li>
-    <li class="move">해안 산책로 도보 12분</li>
-    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>19:40</time><h3>스타의 거리, 심포니 오브 라이츠</h3></div>
-      <p class="tip">쇼는 20:00부터 약 10분. 날씨가 나쁘면 취소돼요. 창가석에서 이미 봤다면 산책만 하고 넘어가세요.</p></div></li>
-    <li class="move">도보 25분 또는 MTR 침사추이 → 조던 한 정거장</li>
-    <li class="stop"><div class="no">5</div><div class="body"><div class="hd"><time>21:00</time><h3>템플 스트리트 야시장, Kai Kai 佳佳甜品</h3></div>
-      <p class="where">Kai Kai는 Ning Po St 29. 새벽 1시까지</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>흑임자 수프 芝麻糊</li><li>생강 시럽 탕위안 薑汁湯圓</li><li>망고 사고</li><li>야시장 카레 어묵</li></ul>
-      <p class="tip">숙소까지 도보 10분. 22시쯤 복귀해요.</p></div></li>
+    <li class="stop"><div class="no h">✈</div><div class="body"><div class="hd"><time>13:00</time><h3>홍콩 공항 도착</h3></div>
+      <div class="chips"><span class="chip wait">입국·짐 찾기 30~60분</span></div>
+      <p class="tip">도착층 MTR 고객센터에서 옥토퍼스를 사거나(앱으로 미리 준비했으면 생략) 공항철도 표를 찍어요. 공항철도는 10분 간격, 구룡역까지 24분.</p></div></li>
+    <li class="move">공항철도 → 구룡역, 택시 승강장 대기 5~15분, 택시 10분</li>
+    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>15:00</time><h3>Page148 체크인</h3></div><p class="where">Austin Rd 148. 체크인 15:00</p><p class="tip">짐 풀고 30분 쉬어요.</p></div></li>
+    <li class="move">도보 8분</li>
+    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>15:50</time><h3>Mak Man Kee 麥文記 · 완탕면</h3></div>
+      <div class="chips"><span class="chip must">꼭 먹기</span><span class="chip wait">대기 0~15분</span><span class="chip">식사 30분</span></div>
+      <p class="where">Parkes St 51. 12:00~자정 넘어서까지, 쉬는 날 없음. 현금 준비</p>
+      <ul class="eat"><li>새우 완탕면 鮮蝦雲吞麵</li><li>새우알 비빔면 蝦子撈麵</li></ul>
+      <p class="tip">점심과 저녁 사이 한산한 시간이라 줄이 짧아요. 저녁이 북경오리니 한 그릇씩만.</p></div></li>
+    <li class="move">MTR 조던 → 몽콕, 두 정거장 5분. E2 출구</li>
+    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>17:00</time><h3>레이디스 마켓 女人街</h3></div>
+      <div class="chips"><span class="chip must">꼭 가기</span><span class="chip">50분</span></div>
+      <p class="where">퉁초이 스트리트. 11:00~23:30</p>
+      <p class="tip">오후 5시면 노점이 다 열려 있어요. 기념품은 부르는 값의 절반에서 흥정을 시작하세요.</p></div></li>
+    <li class="move">도보 4분</li>
+    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>17:50</time><h3>Silk. 몽콕점 · 밀크티</h3></div>
+      <div class="chips"><span class="chip wait">대기 10분 안팎</span></div>
+      <p class="where">Sai Yeung Choi St South 2J. 테이크아웃</p>
+      <ul class="eat"><li>Smooth Boba</li><li>당도 50%</li></ul>
+      <p class="tip">MTR 안에서는 마실 수 없어요. 역 들어가기 전에 다 드세요.</p></div></li>
+    <li class="move">MTR 몽콕 → 침사추이 8분, 도보 10분. 예약 시간까지 15분 여유</li>
+    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>18:45</time><h3>Peking Garden 北京樓 · 북경오리</h3></div>
+      <div class="chips"><span class="chip must">꼭 먹기</span><span class="chip book">예약 18:45</span><span class="chip">식사 75분</span></div>
+      <p class="where">Star House 3층, 스타페리 선착장 옆. +852 2735 8211</p>
+      <ul class="eat"><li>북경오리 반 마리</li><li>샤오롱바오</li><li>탄탄면</li><li>볶음 채소</li></ul>
+      <p class="tip">예약할 때 하버 뷰 창가석을 요청하세요. 20:00 레이저쇼가 자리에서 보여요.</p></div></li>
+    <li class="move">해안 산책로 도보 10분</li>
+    <li class="stop"><div class="no">5</div><div class="body"><div class="hd"><time>20:10</time><h3>스타의 거리 산책</h3></div>
+      <p class="tip">레이저쇼는 20:00부터 10분이에요. 창가석을 못 잡았으면 19:50에 식당을 나와 여기서 보세요.</p></div></li>
+    <li class="move">네이선 로드 도보 10분</li>
+    <li class="stop"><div class="no">6</div><div class="body"><div class="hd"><time>20:40</time><h3>청킹맨션 重慶大廈</h3></div>
+      <div class="chips"><span class="chip">20분</span></div>
+      <p class="where">Nathan Rd 36~44</p>
+      <p class="tip">1층 상가와 환전소 구경. 홍콩달러가 더 필요하면 여기서 환전하면 환율이 좋아요. 여권은 숙소에 두고 가세요.</p></div></li>
+    <li class="move">MTR 침사추이 → 조던 한 정거장 또는 도보 15분</li>
+    <li class="stop"><div class="no">7</div><div class="body"><div class="hd"><time>21:20</time><h3>템플 스트리트 야시장, Kai Kai 佳佳甜品</h3></div>
+      <div class="chips"><span class="chip must">꼭 가기</span><span class="chip wait">Kai Kai 대기 10~20분</span></div>
+      <p class="where">Kai Kai는 Ning Po St 29, 새벽 1시까지</p>
+      <ul class="eat"><li>흑임자 수프 芝麻糊</li><li>생강 탕위안 薑汁湯圓</li><li>야시장 카레 어묵</li></ul>
+      <p class="tip">숙소까지 도보 8분. 23시 전후 귀가.</p></div></li>
   </ol>
 </section>
 
 <!-- ===================== DAY 2 ===================== -->
 <section id="day2" class="d2">
-  <div class="dayhead"><span class="n">2</span><h2>홍콩섬, 서쪽에서 동쪽으로</h2></div>
-  <p class="lead">아침은 숙소 근처 차찬텡에서 먹고, 숙소로 돌아와 채비한 다음 MTR로 바다를 건너요. 섬에서는 되돌아가는 구간 없이 동쪽으로만 걷고, 돌아올 때는 스타페리로 야경을 봅니다.</p>
+  <div class="dayhead"><span class="n">2</span><h2>딤섬, 에스컬레이터, 에그타르트, 피크</h2></div>
+  <p class="lead">아침 딤섬은 문 여는 시간에 줄을 서고, 피크트램은 대기를 1시간 넘게 잡았어요. 저녁은 예약입니다.</p>
 
   <div class="map">
-  <svg viewBox="0 0 400 500" role="img" aria-label="2일차 동선 지도">
+  <svg viewBox="0 0 400 470" role="img" aria-label="2일차 동선 지도">
     <defs><marker id="m2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F5FBF"></path></marker></defs>
-    <rect width="400" height="500" fill="#CFE0EA"></rect>
-    <path d="M0 0 H400 V54 Q300 62 200 56 Q100 50 0 58 Z" fill="#F1F4F1"></path>
-    <g transform="translate(0,70)">
-      <path d="M0 78 Q120 56 240 70 Q330 78 400 62 L400 430 L0 430 Z" fill="#F1F4F1"></path>
-      <path d="M0 300 Q90 270 170 350 Q200 390 190 430 L0 430 Z" fill="#D6E5CF"></path>
-      <g class="cs"><path d="M62 139 L117 140"></path><path d="M144 143 L186 122"></path><path d="M212 123 L252 151"></path><path d="M279 166 L326 184"></path><path d="M341 205 L344 244"></path><path d="M335 270 L301 301"></path><path d="M194 235 Q200 140 288 84"></path></g>
-      <g class="rt" stroke="#1F5FBF">
-        <path d="M62 139 L117 140" marker-end="url(#m2)"></path>
-        <path d="M144 143 L186 122" marker-end="url(#m2)"></path>
-        <path d="M212 123 L252 151" marker-end="url(#m2)"></path>
-        <path d="M279 166 L326 184" marker-end="url(#m2)"></path>
-        <path d="M341 205 L344 244" marker-end="url(#m2)"></path>
-        <path d="M335 270 L301 301" marker-end="url(#m2)"></path>
-        <path class="dash" d="M278 319 Q200 425 106 360" marker-end="url(#m2)"></path>
-        <path class="dash" d="M100 337 L170 262" marker-end="url(#m2)"></path>
-        <path d="M194 235 Q200 140 288 84" marker-end="url(#m2)"></path>
-      </g>
-      <g fill="#1F5FBF" stroke="#fff" stroke-width="2"><circle cx="131" cy="146" r="12"></circle><circle cx="199" cy="115" r="12"></circle><circle cx="265" cy="160" r="12"></circle><circle cx="340" cy="190" r="12"></circle><circle cx="345" cy="260" r="12"></circle><circle cx="290" cy="310" r="12"></circle><circle cx="92" cy="350" r="12"></circle><circle cx="182" cy="250" r="12"></circle><circle cx="300" cy="78" r="12"></circle></g>
-      <text class="num" x="131" y="146.5">2</text><text class="num" x="199" y="115.5">3</text><text class="num" x="265" y="160.5">4</text><text class="num" x="340" y="190.5">5</text><text class="num" x="345" y="260.5">6</text><text class="num" x="290" y="310.5">7</text><text class="num" x="92" y="350.5">8</text><text class="num" x="182" y="250.5">9</text><text class="num" x="300" y="78.5">10</text>
-      <rect x="40" y="131" width="16" height="16" rx="4" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
-      <text class="tm" x="14" y="168">MTR 셩완역</text>
-      <text class="nm" x="131" y="178" text-anchor="middle">만모사원</text><text class="tm" x="131" y="192" text-anchor="middle">10:50</text>
-      <text class="nm" x="199" y="90" text-anchor="middle">Halfway Coffee</text><text class="tm" x="199" y="143" text-anchor="middle">11:15</text>
-      <text class="nm" x="265" y="192" text-anchor="middle">Bakehouse</text><text class="tm" x="265" y="206" text-anchor="middle">12:00 에그타르트</text>
-      <text class="nm" x="388" y="170" text-anchor="end">타이쿤 12:15</text>
-      <text class="nm" x="327" y="257" text-anchor="end">Tsim Chai Kee</text><text class="tm" x="327" y="271" text-anchor="end">13:30 국수 점심</text>
-      <text class="nm" x="308" y="315">피크트램</text><text class="tm" x="308" y="329">15:30</text>
-      <text class="nm" x="92" y="382" text-anchor="middle">빅토리아 피크</text><text class="tm" x="92" y="396" text-anchor="middle">16:15 일몰과 야경</text>
-      <text class="nm" x="182" y="282" text-anchor="middle">Ho Lee Fook</text><text class="tm" x="182" y="296" text-anchor="middle">19:45 저녁</text>
-      <text class="nm" x="318" y="100">센트럴 부두</text><text class="tm" x="318" y="114">21:30</text>
+    <rect width="400" height="470" fill="#CFE0EA"></rect>
+    <path d="M0 0 L400 0 L400 118 Q300 130 200 122 Q100 116 0 128 Z" fill="#F1F4F1"></path>
+    <path d="M0 196 Q120 182 240 190 Q330 196 400 186 L400 470 L0 470 Z" fill="#F1F4F1"></path>
+    <path d="M60 470 Q150 380 300 470 Z" fill="#D6E5CF"></path>
+    <path d="M0 158 Q20 152 40 158 T80 158 M320 160 Q340 154 360 160 T400 160" fill="none" stroke="#BCD3E0" stroke-width="1.5"></path>
+    <text class="area" x="14" y="24">침사추이</text>
+    <text class="area" x="14" y="222">셩완</text>
+    <text class="area" x="330" y="236">센트럴</text>
+    <text class="area" x="14" y="460">빅토리아 피크</text>
+    <text class="sea" x="14" y="150">빅토리아 하버</text>
+    <g class="cs">
+      <path d="M322 50 L297 63"></path><path d="M273 82 L232 102"></path>
+      <path d="M262 218 L237 229"></path><path d="M222 253 L208 278"></path><path d="M192 296 L177 302"></path>
+      <path d="M152 300 L117 287"></path><path d="M95 270 L84 262"></path><path d="M92 248 L127 231"></path>
+      <path d="M232 362 Q340 280 288 222"></path>
     </g>
-    <g class="cs"><path d="M174 28 L216 28"></path></g>
     <g class="rt" stroke="#1F5FBF">
-      <path d="M174 28 L216 28" marker-start="url(#m2)" marker-end="url(#m2)"></path>
-      <path class="dash" d="M118 42 Q70 110 50 196" marker-end="url(#m2)"></path>
-      <path class="dash" d="M300 134 L300 66" marker-end="url(#m2)"></path>
+      <path d="M322 50 L297 63" marker-end="url(#m2)"></path>
+      <path d="M273 82 L232 102" marker-end="url(#m2)"></path>
+      <path class="dash" d="M206 122 L248 196" marker-end="url(#m2)"></path>
+      <path d="M262 218 L237 229" marker-end="url(#m2)"></path>
+      <path d="M222 253 L208 278" marker-end="url(#m2)"></path>
+      <path d="M192 296 L177 302" marker-end="url(#m2)"></path>
+      <path d="M152 300 L117 287" marker-end="url(#m2)"></path>
+      <path d="M95 270 L84 262" marker-end="url(#m2)"></path>
+      <path d="M92 248 L127 231" marker-end="url(#m2)"></path>
+      <path class="dash" d="M152 232 L331 318" marker-end="url(#m2)"></path>
+      <path class="dash" d="M338 340 Q300 430 192 428" marker-end="url(#m2)"></path>
+      <path class="dash" d="M180 412 L214 372" marker-end="url(#m2)"></path>
+      <path d="M232 362 Q340 280 288 222" marker-end="url(#m2)"></path>
+      <path class="dash" d="M282 196 Q270 150 230 124" marker-end="url(#m2)"></path>
     </g>
-    <rect x="100" y="16" width="72" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
-    <text x="136" y="28.5" text-anchor="middle" dominant-baseline="central" style="font:600 13px 'Barlow Condensed',sans-serif;fill:#fff">Page148</text>
-    <text class="tm" x="92" y="24" text-anchor="end">09:20 채비</text><text class="tm" x="92" y="38" text-anchor="end">10:20 출발</text>
-    <circle cx="230" cy="28" r="12" fill="#1F5FBF" stroke="#fff" stroke-width="2"></circle><text class="num" x="230" y="28.5">1</text>
-    <text class="nm" x="248" y="24">Australia Dairy</text><text class="tm" x="248" y="38">08:40 아침</text>
-    <text class="tm" x="392" y="48" text-anchor="end">구룡</text>
-    <text class="tm" x="62" y="120">MTR</text>
-    <text class="tm" x="312" y="100">스타페리로</text><text class="tm" x="312" y="114">침사추이</text>
-    <text class="sea" x="140" y="100">빅토리아 하버</text>
+    <rect x="300" y="26" width="72" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
+    <text class="pill" x="336" y="38.5">Page148</text>
+    <rect x="168" y="100" width="76" height="22" rx="11" fill="#0B5D4B" stroke="#fff" stroke-width="2"></rect>
+    <text class="pill" x="206" y="111.5">스타페리</text>
+    <rect x="236" y="196" width="76" height="22" rx="11" fill="#0B5D4B" stroke="#fff" stroke-width="2"></rect>
+    <text class="pill" x="274" y="207.5">센트럴 부두</text>
+    <g fill="#1F5FBF" stroke="#fff" stroke-width="2">
+      <circle cx="285" cy="72" r="12"></circle><circle cx="228" cy="240" r="12"></circle><circle cx="202" cy="292" r="12"></circle>
+      <circle cx="165" cy="305" r="12"></circle><circle cx="105" cy="282" r="12"></circle><circle cx="80" cy="252" r="12"></circle>
+      <circle cx="140" cy="226" r="12"></circle><circle cx="342" cy="324" r="12"></circle><circle cx="176" cy="426" r="12"></circle><circle cx="224" cy="362" r="12"></circle>
+    </g>
+    <text class="num" x="285" y="72.5">1</text><text class="num" x="228" y="240.5">2</text><text class="num" x="202" y="292.5">3</text>
+    <text class="num" x="165" y="305.5">4</text><text class="num" x="105" y="282.5">5</text><text class="num" x="80" y="252.5">6</text>
+    <text class="num" x="140" y="226.5">7</text><text class="num" x="342" y="324.5">8</text><text class="num" x="176" y="426.5">9</text><text class="num" x="224" y="362.5">10</text>
+    <text class="nm" x="272" y="70" text-anchor="end">One Dim Sum</text><text class="tm" x="272" y="84" text-anchor="end">08:40 딤섬</text>
+    <text class="nm" x="246" y="244">에스컬레이터</text><text class="tm" x="246" y="258">10:50</text>
+    <text class="nm" x="218" y="296">타이쿤 11:10</text>
+    <text class="nm" x="165" y="335" text-anchor="middle">Bakehouse</text><text class="tm" x="165" y="349" text-anchor="middle">12:00 에그타르트</text>
+    <text class="nm" x="98" y="310" text-anchor="middle">만모사원</text><text class="tm" x="98" y="324" text-anchor="middle">12:50</text>
+    <text class="nm" x="26" y="234">Halfway Coffee</text><text class="tm" x="26" y="248">13:15</text>
+    <text class="nm" x="152" y="212">Kau Kee</text><text class="tm" x="202" y="212">14:00</text>
+    <text class="nm" x="390" y="350" text-anchor="end">피크트램</text><text class="tm" x="390" y="364" text-anchor="end">15:20 줄서기</text>
+    <text class="nm" x="196" y="448">빅토리아 피크</text><text class="tm" x="196" y="462">16:45~19:00</text>
+    <text class="nm" x="242" y="368">Ho Lee Fook</text><text class="tm" x="242" y="382">19:45 저녁</text>
+    <text class="tm" x="268" y="146">밤 귀가</text>
+    <text class="tm" x="160" y="168" text-anchor="end">아침</text>
   </svg>
-  <div class="legend"><span><i></i>도보</span><span><i class="dash"></i>페리, 트램, MTR</span></div>
+  <div class="legend"><span><i></i>도보</span><span><i class="dash"></i>페리, 택시, 트램</span></div>
   </div>
 
   <ol class="tl">
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>08:30</time><h3>호텔 출발</h3></div>
-      <p class="tip">가벼운 차림으로 나가요. 아침 먹고 바로 돌아올 거예요.</p></div></li>
-    <li class="move">도보 7분, 1일차 Mak Man Kee 바로 옆</li>
-    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>08:40</time><h3>Australia Dairy Company 澳洲牛奶公司</h3></div>
-      <p class="where">조던 Parkes St 47~49. 07:30~23:00, 목요일 휴무</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>스크램블 에그 토스트 炒蛋多士</li><li>햄 마카로니 수프 火腿通粉</li><li>스팀 밀크 푸딩 燉奶</li><li>밀크티 奶茶</li></ul>
-      <p class="tip">아침 세트로 시키면 위 메뉴가 한 번에 나와요. 현금만 받고, 합석이 기본이에요. 직원이 빠르고 무뚝뚝한 게 이 집 스타일이라 줄도 금방 빠져요.</p></div></li>
-    <li class="move">도보 7분</li>
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>09:20</time><h3>숙소에서 채비</h3></div>
-      <p class="tip">샤워하고 옷을 갈아입어요. 오늘은 밤 22시 넘어 돌아오니 챙길 것: 바람막이(피크 저녁 바람), 접이식 우산, 보조배터리, 현금(Tsim Chai Kee), 옥토퍼스 잔액, 피크트램 티켓과 Ho Lee Fook 예약 확인.</p></div></li>
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>10:20</time><h3>호텔 출발, 바다 건너 홍콩섬으로</h3></div>
-      <p class="tip">MTR 조던 → 센트럴(췬완선, 환승 없이 10분) → 아일랜드선으로 갈아타 한 정거장 셩완. 약 20분, A2 출구로 나가 할리우드 로드까지 오르막 8분이에요.</p></div></li>
-    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>10:50</time><h3>만모사원 文武廟</h3></div>
-      <p class="tip">천장에 매달린 나선형 향이 사진 포인트. 20분이면 충분해요.</p></div></li>
-    <li class="move">도보 2분, 캣 스트리트 골동품 골목</li>
-    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>11:15</time><h3>Halfway Coffee 半路咖啡</h3></div>
-      <p class="where">Upper Lascar Row 12. 08:00~18:00</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>플랫 화이트</li><li>로즈 라떼</li></ul>
-      <p class="tip">빈티지 중국 도자기 잔에 담아줘요. 야외 자리가 사진이 잘 나와요.</p></div></li>
-    <li class="move">도보 8분, 소호 방향 오르막</li>
-    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>12:00</time><h3>Bakehouse 소호점</h3></div>
-      <p class="where">Staunton St 5</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>사워도우 에그타르트</li></ul>
-      <p class="tip">점심 전이니 하나 사서 둘이 나눠요. 포장해서 타이쿤 마당에서 드세요. 점심시간이라 줄이 길면 건너뛰어도 돼요.</p></div></li>
-    <li class="move">도보 3분</li>
-    <li class="stop"><div class="no">5</div><div class="body"><div class="hd"><time>12:15</time><h3>타이쿤 大館</h3></div>
-      <p class="tip">옛 경찰서와 감옥을 고친 문화 공간. 입장 무료. 감옥동과 마당, 전시 하나 정도 보면 1시간이에요.</p></div></li>
-    <li class="move">도보 4분, 내리막</li>
-    <li class="stop"><div class="no">6</div><div class="body"><div class="hd"><time>13:30</time><h3>Tsim Chai Kee 沾仔記</h3></div>
-      <p class="where">Wellington St 98. 11:00~21:30, 쉬는 날 없음</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>세 가지 토핑 국수 至尊三寶麵</li><li>테이블 고추기름</li></ul>
-      <p class="tip">새우 완탕, 소고기, 어묵볼이 다 올라가는 메뉴예요. 현금을 준비하세요. 13시 반이면 점심 피크가 지나 덜 기다려요. 식사 후에는 미드레벨 에스컬레이터를 타 보거나 란퐁유엔에서 밀크티를 마시며 쉬다가 피크트램으로 걸어가면 돼요(도보 15분).</p></div></li>
-    <li class="stop"><div class="no">7</div><div class="body"><div class="hd"><time>15:30</time><h3>피크트램 탑승</h3></div>
-      <p class="where">Garden Rd 33 하부 승강장</p>
-      <p class="tip">올라갈 때 오른쪽 좌석이 전망이 좋아요. 티켓은 미리 사두세요(아래 준비와 예약 참고).</p></div></li>
-    <li class="stop"><div class="no">8</div><div class="body"><div class="hd"><time>16:15</time><h3>빅토리아 피크</h3></div>
-      <p class="tip">루가드 로드를 20분쯤 걸으면 무료 전망 포인트가 나와요. 해 질 무렵(18시 전후)부터 야경까지 보고 19시쯤 내려옵니다. 바람막이를 챙기세요. 내려갈 때 트램은 현장 QR로 디지털 번호표를 먼저 받아야 해요.</p></div></li>
-    <li class="move">트램 하산 후 택시 8분 또는 도보 20분</li>
-    <li class="stop"><div class="no">9</div><div class="body"><div class="hd"><time>19:45</time><h3>Ho Lee Fook 口利福</h3></div>
-      <p class="where">소호 Elgin St 3~5. 18:00~22:30, 예약 필수, 식사 90분 제한</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>꿀 차슈 Kurobuta char siu</li><li>새우 토스트</li><li>와규 갈비</li><li>볶음밥 하나</li></ul></div></li>
-    <li class="move">도보 15분, 내리막으로 센트럴 부두까지</li>
-    <li class="stop"><div class="no">10</div><div class="body"><div class="hd"><time>21:30</time><h3>스타페리로 침사추이</h3></div>
-      <p class="tip">센트럴 7번 부두에서 약 9분. 위층 오른쪽 자리가 구룡 야경이 잘 보여요. 침사추이 선착장에서 호텔까지는 도보 20분이나 택시 5분이고, 22:15쯤 도착해요.</p></div></li>
+    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>08:30</time><h3>호텔 출발</h3></div><p class="tip">도보 10분. 아침은 먹지 말고 딤섬으로.</p></div></li>
+    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>08:40</time><h3>One Dim Sum 一點心 침사추이점 · 딤섬</h3></div>
+      <div class="chips"><span class="chip must">꼭 먹기</span><span class="chip wait">오픈 전 줄 20분</span><span class="chip">식사 60분</span></div>
+      <p class="where">Hart Ave 4. 09:00 오픈</p>
+      <ul class="eat"><li>새우 창펀 鮮蝦腸粉</li><li>하가우 蝦餃</li><li>슈마이 燒賣</li><li>차슈바오 叉燒包</li><li>커스터드 번 流沙包</li></ul>
+      <p class="tip">줄 서는 동안 주문표에 미리 체크해 두면 앉자마자 나와요. 9시 넘어 도착하면 대기가 30분 이상 늘어요.</p></div></li>
+    <li class="move">도보 12분 → 스타페리 10분 간격, 9분 항해</li>
+    <li class="rest"><span>센트럴 부두 도착 10:30쯤. 부두에서 에스컬레이터 입구까지 도보 15분</span></li>
+    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>10:50</time><h3>미드레벨 에스컬레이터</h3></div>
+      <div class="chips"><span class="chip must">꼭 가기</span><span class="chip">10분</span></div>
+      <p class="where">Queen's Rd Central의 센트럴 마켓 옆에서 시작</p>
+      <p class="tip">06:00~10:00은 내려가는 방향이고 10:00부터 올라가요. 그래서 10시 이후로 넣었어요. 할리우드 로드에서 내리세요.</p></div></li>
+    <li class="move">에스컬레이터에서 바로</li>
+    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>11:10</time><h3>타이쿤 大館</h3></div>
+      <div class="chips"><span class="chip">40분</span><span class="chip">무료</span></div>
+      <p class="tip">옛 경찰서와 감옥을 고친 문화 공간. 감옥동과 마당만 봐도 충분해요.</p></div></li>
+    <li class="move">도보 5분, 스탠턴 스트리트</li>
+    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>12:00</time><h3>Bakehouse 소호점 · 에그타르트</h3></div>
+      <div class="chips"><span class="chip must">꼭 먹기</span><span class="chip wait">대기 10~30분</span></div>
+      <p class="where">Staunton St 5. 08:00~21:00</p>
+      <ul class="eat"><li>사워도우 에그타르트 1인 2개</li></ul>
+      <p class="tip">줄이 30분을 넘으면 에스컬레이터 아래 Lyndhurst Terrace의 타이청 베이커리(泰昌餅家)로 바꾸세요. 쿠키 같은 바삭한 타르트예요.</p></div></li>
+    <li class="move">할리우드 로드 따라 서쪽으로 도보 10분</li>
+    <li class="stop"><div class="no">5</div><div class="body"><div class="hd"><time>12:50</time><h3>만모사원 文武廟</h3></div>
+      <div class="chips"><span class="chip wait">입장 줄 0~20분</span></div>
+      <p class="tip">천장의 나선형 향이 사진 포인트.</p></div></li>
+    <li class="move">캣 스트리트 골동품 골목 도보 2분</li>
+    <li class="stop"><div class="no">6</div><div class="body"><div class="hd"><time>13:15</time><h3>Halfway Coffee 半路咖啡</h3></div>
+      <div class="chips"><span class="chip wait">대기 0~20분</span><span class="chip">쉬는 시간 30분</span></div>
+      <p class="where">Upper Lascar Row. 08:00~18:00</p>
+      <ul class="eat"><li>플랫 화이트</li></ul></div></li>
+    <li class="move">도보 5분</li>
+    <li class="stop"><div class="no">7</div><div class="body"><div class="hd"><time>14:00</time><h3>Kau Kee 九記 · 소고기 양지 국수</h3></div>
+      <div class="chips"><span class="chip wait">대기 20~40분</span><span class="chip">일요일 휴무</span></div>
+      <p class="where">Gough St 21. 12:30~22:30, 현금만</p>
+      <ul class="eat"><li>양지 국수 上湯牛腩麵</li><li>카레 양지 이면 咖喱牛腩伊麵</li></ul>
+      <p class="tip">일요일이면 Wellington St의 Tsim Chai Kee(沾仔記)에서 세 가지 토핑 국수로 바꾸세요.</p></div></li>
+    <li class="move">택시 10분 (가든 로드 하부 승강장). 걸으면 오르막 20분</li>
+    <li class="stop"><div class="no">8</div><div class="body"><div class="hd"><time>15:20</time><h3>피크트램 줄서기</h3></div>
+      <div class="chips"><span class="chip must">꼭 가기</span><span class="chip wait">탑승 대기 30~90분</span></div>
+      <p class="where">Garden Rd 33</p>
+      <p class="tip">표를 미리 사도 탑승 줄은 서야 해요. 주말이나 일몰 직전엔 더 길어져서 일찍 가는 걸로 잡았어요. 올라갈 때 오른쪽 자리가 전망이 좋아요.</p></div></li>
+    <li class="stop"><div class="no">9</div><div class="body"><div class="hd"><time>16:45<small> ~19:00</small></time><h3>빅토리아 피크</h3></div>
+      <div class="chips"><span class="chip must">꼭 가기</span></div>
+      <p class="tip">먼저 루가드 로드를 40분쯤 걷고, 17:40쯤 스카이테라스 428에 올라가 일몰(10월이면 18시 전후)부터 야경까지 봐요. 저녁엔 바람이 세서 겉옷을 챙기세요.</p></div></li>
+    <li class="move">내려갈 때 피크트램은 현장 QR로 번호표부터. 대기 30분이 넘으면 피크 갤러리아 택시 승강장에서 택시 15분</li>
+    <li class="stop"><div class="no">10</div><div class="body"><div class="hd"><time>19:45</time><h3>Ho Lee Fook 口利福</h3></div>
+      <div class="chips"><span class="chip book">예약 19:45</span><span class="chip">90분 제한</span></div>
+      <p class="where">Elgin St 3~5, 소호</p>
+      <ul class="eat"><li>차슈</li><li>새우 토스트</li><li>와규 갈비</li><li>볶음밥</li></ul></div></li>
+    <li class="move">도보 15분 내리막 → 센트럴 7번 부두, 스타페리 9분</li>
+    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>22:20</time><h3>숙소 도착</h3></div><p class="tip">침사추이 선착장에서 택시 5분이나 도보 20분.</p></div></li>
   </ol>
 </section>
 
 <!-- ===================== DAY 3 ===================== -->
 <section id="day3" class="d3">
-  <div class="dayhead"><span class="n">3</span><h2>몽콕 반나절, 그리고 공항</h2></div>
-  <p class="lead">16:00 비행기라 13:10까지 공항에 도착하는 일정이에요. 늦어지면 플라워 마켓부터 줄이세요.</p>
+  <div class="dayhead"><span class="n">3</span><h2>파인애플번, 초이홍 아파트, 공항</h2></div>
+  <p class="lead">16:00 비행기라 12:30까지 공항에 도착해요. 3시간 넘게 여유를 둬서 공항에서 점심을 먹어도 됩니다.</p>
 
   <div class="map">
-  <svg viewBox="0 0 400 430" role="img" aria-label="3일차 동선 지도">
+  <svg viewBox="0 0 400 380" role="img" aria-label="3일차 동선 지도">
     <defs><marker id="m3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B7A4B"></path></marker></defs>
-    <rect width="400" height="430" fill="#F1F4F1"></rect>
-    <path d="M0 215 L0 430 L400 430 L400 412 Q200 418 130 408 Q60 392 46 340 Q30 270 0 215 Z" fill="#CFE0EA"></path>
-    <path d="M200 0 L200 410" stroke="#E2E8E4" stroke-width="9"></path>
-    <g class="cs"><path d="M296 313 L313 352"></path><path d="M284 54 L207 71"></path><path d="M194 91 L211 143"></path><path d="M208 176 L179 215"></path><path d="M254 304 L88 318"></path></g>
+    <rect width="400" height="380" fill="#F1F4F1"></rect>
+    <path d="M0 230 L0 380 L400 380 L400 355 Q250 365 150 350 Q70 335 40 290 Q20 250 0 230 Z" fill="#CFE0EA"></path>
+    <path d="M140 0 L140 340" stroke="#E2E8E4" stroke-width="9"></path>
+    <text class="area" x="150" y="24">프린스에드워드</text>
+    <text class="area" x="296" y="24">구룡 동쪽</text>
+    <text class="area" x="150" y="320">조던</text>
+    <text class="area" x="14" y="222">서구룡</text>
+    <g class="cs"><path d="M150 82 L178 72"></path></g>
     <g class="rt" stroke="#0B7A4B">
-      <path d="M296 313 L313 352" marker-end="url(#m3)"></path>
-      <path class="dash" d="M332 354 Q384 200 310 64" marker-end="url(#m3)"></path>
-      <path d="M284 54 L207 71" marker-end="url(#m3)"></path>
-      <path d="M194 91 L211 143" marker-end="url(#m3)"></path>
-      <path d="M208 176 L179 215" marker-end="url(#m3)"></path>
-      <path class="dash" d="M181 242 L262 288" marker-end="url(#m3)"></path>
-      <path d="M254 304 L88 318" marker-end="url(#m3)"></path>
-      <path class="dash" d="M62 307 L24 214" marker-end="url(#m3)"></path>
+      <path class="dash" d="M150 278 L150 108" marker-end="url(#m3)"></path>
+      <path d="M150 82 L178 72" marker-end="url(#m3)"></path>
+      <path class="dash" d="M206 72 Q280 60 322 108" marker-end="url(#m3)"></path>
+      <path class="dash" d="M330 142 Q300 260 196 288" marker-end="url(#m3)"></path>
+      <path class="dash" d="M112 296 L66 282" marker-end="url(#m3)"></path>
+      <path class="dash" d="M40 274 L14 258" marker-end="url(#m3)"></path>
     </g>
-    <rect x="255" y="288" width="72" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
-    <text x="291" y="300.5" text-anchor="middle" dominant-baseline="central" style="font:600 13px 'Barlow Condensed',sans-serif;fill:#fff">Page148</text>
-    <g fill="#0B7A4B" stroke="#fff" stroke-width="2"><circle cx="320" cy="366" r="12"></circle><circle cx="300" cy="50" r="12"></circle><circle cx="190" cy="75" r="12"></circle><circle cx="215" cy="160" r="12"></circle><circle cx="170" cy="230" r="12"></circle><circle cx="72" cy="320" r="12"></circle></g>
-    <text class="num" x="320" y="366.5">1</text><text class="num" x="300" y="50.5">2</text><text class="num" x="190" y="75.5">3</text><text class="num" x="215" y="160.5">4</text><text class="num" x="170" y="230.5">5</text><text class="num" x="72" y="320.5">6</text>
-    <text class="nm" x="300" y="372" text-anchor="end">One Dim Sum 침사추이점</text><text class="tm" x="300" y="386" text-anchor="end">09:00 아침 딤섬</text>
-    <text class="nm" x="282" y="32" text-anchor="end">플라워 마켓 10:30</text>
-    <text class="nm" x="172" y="72" text-anchor="end">Kam Wah Cafe</text><text class="tm" x="172" y="86" text-anchor="end">10:55 파인애플번 포장</text>
-    <text class="nm" x="233" y="157">레이디스 마켓</text><text class="tm" x="233" y="171">11:10</text>
-    <text class="nm" x="152" y="227" text-anchor="end">Silk. 밀크티</text><text class="tm" x="152" y="241" text-anchor="end">11:35 보바 테이크아웃</text>
-    <text class="nm" x="100" y="352" text-anchor="middle">구룡역</text><text class="tm" x="100" y="366" text-anchor="middle">12:45 공항철도</text>
-    <text class="nm" x="8" y="196">공항 13:10</text>
-    <text class="tm" x="352" y="210" text-anchor="middle">MTR</text>
+    <rect x="112" y="280" width="76" height="24" rx="12" fill="#10201C" stroke="#fff" stroke-width="2"></rect>
+    <text class="pill" x="150" y="292.5">Page148</text>
+    <g fill="#0B7A4B" stroke="#fff" stroke-width="2">
+      <circle cx="150" cy="94" r="12"></circle><circle cx="192" cy="68" r="12"></circle><circle cx="330" cy="126" r="12"></circle><circle cx="52" cy="280" r="12"></circle>
+    </g>
+    <text class="num" x="150" y="94.5">1</text><text class="num" x="192" y="68.5">2</text><text class="num" x="330" y="126.5">3</text><text class="num" x="52" y="280.5">4</text>
+    <text class="nm" x="132" y="92" text-anchor="end">Kam Wah Cafe</text><text class="tm" x="132" y="106" text-anchor="end">08:20 파인애플번</text>
+    <text class="nm" x="192" y="44" text-anchor="middle">플라워 마켓</text><text class="tm" x="210" y="58">09:05</text>
+    <text class="nm" x="330" y="160" text-anchor="middle">초이홍 아파트</text><text class="tm" x="330" y="174" text-anchor="middle">10:00</text>
+    <text class="nm" x="52" y="312" text-anchor="middle">구룡역</text><text class="tm" x="52" y="326" text-anchor="middle">11:50 공항철도</text>
+    <text class="tm" x="14" y="250">공항</text>
+    <text class="tm" x="158" y="196">MTR</text><text class="tm" x="262" y="56">MTR</text><text class="tm" x="276" y="240">MTR, 짐 찾기</text>
   </svg>
-  <div class="legend"><span><i></i>도보, 택시</span><span><i class="dash"></i>MTR, 공항철도</span></div>
+  <div class="legend"><span><i></i>도보</span><span><i class="dash"></i>MTR, 택시, 공항철도</span></div>
   </div>
 
   <ol class="tl">
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>08:40</time><h3>체크아웃, 짐 보관</h3></div><p class="tip">프런트에 짐을 맡기고 가볍게 나가요.</p></div></li>
-    <li class="move">도보 8분</li>
-    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>09:00</time><h3>One Dim Sum 一點心 침사추이점</h3></div>
-      <p class="where">Hart Ave 4. 매일 09:00 오픈</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>새우 창펀 鮮蝦腸粉</li><li>하가우</li><li>차슈바오</li><li>커스터드 번 流沙包</li><li>연잎밥 糯米雞</li></ul>
-      <p class="tip">문 여는 시간에 가면 대기가 없어요. 줄 서 있는 동안 주문표에 미리 체크해요.</p></div></li>
-    <li class="move">MTR 침사추이 → 프린스에드워드, 약 12분. B1 출구</li>
-    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>10:30</time><h3>플라워 마켓 花墟</h3></div><p class="tip">꽃 도매 거리를 20분 정도 산책해요. 시간이 밀리면 여기를 건너뛰세요.</p></div></li>
+    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>07:45</time><h3>체크아웃, 짐 보관</h3></div><p class="tip">프런트에 캐리어를 맡기고 가볍게 나가요.</p></div></li>
+    <li class="move">MTR 조던 → 프린스에드워드, 세 정거장 6분. B2 출구</li>
+    <li class="stop"><div class="no">1</div><div class="body"><div class="hd"><time>08:20</time><h3>Kam Wah Cafe 金華冰廳 · 아침</h3></div>
+      <div class="chips"><span class="chip wait">대기 0~15분</span><span class="chip">식사 40분</span></div>
+      <p class="where">Bute St 47. 06:30 오픈</p>
+      <ul class="eat"><li>버터 파인애플번 菠蘿油</li><li>프렌치토스트</li><li>홍콩 밀크티</li></ul></div></li>
     <li class="move">도보 5분</li>
-    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>10:55</time><h3>Kam Wah Cafe 金華冰廳</h3></div>
-      <p class="where">Bute St 47</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>버터 파인애플번 菠油</li></ul>
-      <p class="tip">아침을 든든히 먹었으니 하나만 포장해서 나눠 드세요. 입구 옆 포장 창구가 빨라요.</p></div></li>
-    <li class="move">도보 6분, 퉁초이 스트리트를 따라 남쪽으로</li>
-    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>11:10</time><h3>레이디스 마켓 女人街</h3></div><p class="tip">북쪽 끝에서 들어가 남쪽으로 걸어 내려와요. 기념품은 부르는 값의 절반에서 흥정을 시작하세요.</p></div></li>
-    <li class="move">도보 4분</li>
-    <li class="stop"><div class="no">5</div><div class="body"><div class="hd"><time>11:35</time><h3>Silk. 몽콕점</h3></div>
-      <p class="where">Sai Yeung Choi St South 2J~2Q. 평일 11:00, 금·토 10:30 오픈</p>
-      <p class="eatlabel">주문할 것</p><ul class="eat"><li>Smooth Boba 홍콩식 밀크티 보바</li><li>당도 50%</li></ul>
-      <p class="tip">테이크아웃 전문이고 대기는 10분 안팎. MTR 안에서는 마실 수 없으니 역에 들어가기 전에 다 드세요.</p></div></li>
-    <li class="move">MTR 야우마테이 → 조던 한 정거장, 도보 6분</li>
-    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>12:10</time><h3>호텔에서 짐 찾기</h3></div></div></li>
-    <li class="move">택시 5분</li>
-    <li class="stop"><div class="no">6</div><div class="body"><div class="hd"><time>12:30</time><h3>구룡역, 공항철도</h3></div>
-      <p class="tip">12:45쯤 공항철도를 타면 13:10에 공항 도착. 점심은 출국 수속 후 공항에서 드세요. 남은 옥토퍼스 잔액은 공항에서 쓰거나 환불받을 수 있어요.</p></div></li>
+    <li class="stop"><div class="no">2</div><div class="body"><div class="hd"><time>09:05</time><h3>플라워 마켓 花墟</h3></div>
+      <div class="chips"><span class="chip">25분</span></div>
+      <p class="tip">시간이 밀리면 건너뛰어도 되는 곳이에요.</p></div></li>
+    <li class="move">MTR 프린스에드워드 → 초이홍, 관통선 한 번에 15분. C3 출구</li>
+    <li class="stop"><div class="no">3</div><div class="body"><div class="hd"><time>10:00</time><h3>초이홍 아파트 彩虹邨</h3></div>
+      <div class="chips"><span class="chip">40분</span></div>
+      <p class="tip">무지개색 아파트와 주차장 옥상 농구장이 사진 포인트. 실제 주민이 사는 곳이라 조용히 찍고 주민은 찍지 마세요. 오전 빛이 예뻐요.</p></div></li>
+    <li class="move">MTR 초이홍 → 몽콕 환승 → 조던, 25분</li>
+    <li class="stop"><div class="no h">H</div><div class="body"><div class="hd"><time>11:15</time><h3>호텔에서 짐 찾기</h3></div></div></li>
+    <li class="move">택시 10분, 택시 잡는 시간 5~10분</li>
+    <li class="stop"><div class="no">4</div><div class="body"><div class="hd"><time>11:50</time><h3>구룡역 → 공항철도</h3></div>
+      <p class="tip">항공사가 도심 체크인을 지원하면 여기서 짐을 부치고 공항까지 맨몸으로 가요. 공항철도 24분, 12:30 전후 공항 도착.</p></div></li>
+    <li class="rest"><span>12:30~15:15 공항. 출국 수속 후 점심. 남은 옥토퍼스 잔액은 편의점에서 쓰거나 환불받으세요.</span></li>
     <li class="stop"><div class="no h">✈</div><div class="body"><div class="hd"><time>16:00</time><h3>출국</h3></div></div></li>
   </ol>
 </section>
@@ -349,79 +428,67 @@ footer{padding:26px 0 40px;color:var(--sub);font-size:13px}
 <section id="prep" class="info">
   <h2>준비와 예약</h2>
 
-  <div class="box warn"><h3>휴무와 오픈 시간 주의</h3>
+  <div class="box warn"><h3>날짜 확인할 것</h3>
     <ul>
-      <li>Australia Dairy Company는 목요일에 쉬어요. 2일차가 목요일이면 야우마테이의 Mido Cafe 美都餐室(Temple St 63, 숙소 도보 10분, 수요일 휴무)로 바꾸세요. 9시쯤 열어서 출발을 30분 늦추면 돼요.</li>
-      <li>Silk.은 평일 11:00에 열어요. 일찍 도착하면 레이디스 마켓을 먼저 더 보세요.</li>
-      <li>% Arabica 선착장점은 19:00에 닫아요.</li>
+      <li>Kau Kee는 일요일에 쉬어요. 2일차가 일요일이면 Tsim Chai Kee로 바꾸세요.</li>
+      <li>피크트램은 주말과 공휴일에 대기가 가장 길어요. 2일차가 주말이면 15:00까지 승강장에 가세요.</li>
+      <li>레이저쇼는 비나 강풍이 있으면 취소돼요.</li>
     </ul></div>
+
+  <div class="box"><h3>미리 예약</h3>
+    <div class="tablewrap"><table>
+      <tr><th>무엇</th><th>언제</th><th>방법</th></tr>
+      <tr><td>Peking Garden 스타하우스</td><td>1일차 18:45, 창가석</td><td>전화 +852 2735 8211</td></tr>
+      <tr><td>Ho Lee Fook</td><td>2일차 19:45</td><td>공식 사이트 온라인 예약</td></tr>
+      <tr><td>피크트램 + 스카이테라스 428</td><td>2일차</td><td>공식 사이트나 Klook, KKday</td></tr>
+      <tr><td>공항철도 왕복</td><td>1일차, 3일차</td><td>Klook 등 QR 티켓, 또는 옥토퍼스</td></tr>
+    </table></div></div>
 
   <div class="box"><h3>옥토퍼스 카드</h3>
     <ul>
-      <li>MTR, 버스, 트램, 스타페리, 피크트램, 편의점에서 모두 찍고 쓰는 교통카드예요. 한 장을 둘이 같이 쓸 수 없으니 1인 1장이 필요해요.</li>
-      <li>아이폰이면 출발 전에 Octopus for Tourists 앱으로 Apple Wallet에 추가하는 게 가장 편해요. 해외 발급 Visa나 Mastercard로 충전하고, 남은 돈은 앱에서 환불 신청해요.</li>
-      <li>실물 카드는 공항 도착층 MTR 고객센터에서 사요. 일반 카드는 HK$150(보증금 50 + 잔액 100)이고 반납하면 보증금을 돌려받아요. 90일 안에 반납하면 수수료가 조금 붙어요. 기념으로 가질 거면 HK$39짜리 관광객용 카드를 편의점에서 사도 돼요.</li>
-      <li>충전은 MTR 역 충전기나 세븐일레븐에서 현금으로 해요. 2박 3일이면 1인 HK$200 정도에 공항철도 요금을 더하면 넉넉해요.</li>
+      <li>MTR, 스타페리, 피크트램, 트램, 편의점에서 다 써요. 1인 1장.</li>
+      <li>아이폰이면 출발 전에 Octopus for Tourists 앱으로 Apple Wallet에 추가해요. 해외 카드로 충전하고, 남은 돈은 앱에서 환불 신청.</li>
+      <li>실물 카드는 공항 도착층 MTR 고객센터에서 HK$150(보증금 50 포함).</li>
     </ul></div>
 
   <div class="box"><h3>스타페리</h3>
     <ul>
-      <li>예약이 없고 좌석 지정도 없어요. 개찰구에서 옥토퍼스를 찍고 타면 끝이에요.</li>
-      <li>센트럴 ↔ 침사추이는 06:30~23:30 운항, 약 9분. 저녁 시간에는 10~12분 간격이에요.</li>
-      <li>성인 요금은 위층 기준 평일 HK$5.0, 주말과 공휴일 HK$6.5. 옥토퍼스가 없으면 부두 자동판매기에서 카드로 표를 살 수 있어요.</li>
-      <li>배 안에서는 음식과 음료가 금지예요.</li>
-    </ul></div>
-
-  <div class="box"><h3>피크트램</h3>
-    <ul>
-      <li>왕복 + 스카이테라스 428 콤보를 공식 사이트나 Klook, KKday에서 미리 사두면 매표 줄을 건너뛰어요. 가격은 구매 시점에 확인하세요.</li>
-      <li>내려올 때는 상부 승강장의 Queue Easy QR로 디지털 번호표를 먼저 받아야 탑승할 수 있어요.</li>
-      <li>스카이테라스를 안 가도 피크 갤러리아 옥상과 루가드 로드 전망은 무료예요.</li>
-    </ul></div>
-
-  <div class="box"><h3>공항철도</h3>
-    <ul>
-      <li>공항 ↔ 구룡역 약 22분. 옥토퍼스로 찍고 타거나, Klook 등에서 QR 티켓을 미리 사면 보통 더 저렴해요.</li>
-      <li>구룡역 ↔ Page148은 택시 5분이에요. 캐리어가 있으니 택시를 권해요.</li>
+      <li>예약이나 좌석 지정 없어요. 개찰구에서 옥토퍼스를 찍고 타요.</li>
+      <li>06:30~23:30 운항, 9분. 위층 성인 평일 HK$5.0, 주말 HK$6.5.</li>
     </ul></div>
 
   <div class="box"><h3>현금이 필요한 곳</h3>
-    <div class="tablewrap"><table>
-      <tr><th>가게</th><th>결제</th><th>2인 예상</th></tr>
-      <tr><td>Australia Dairy Company</td><td>현금만</td><td>HK$120 안팎</td></tr>
-      <tr><td>Mak Man Kee, Tsim Chai Kee</td><td>현금 준비</td><td>각 HK$100~150</td></tr>
-      <tr><td>Kai Kai, Kam Wah, 야시장</td><td>현금 또는 옥토퍼스</td><td>각 HK$50~100</td></tr>
-      <tr><td>Peking Garden, Ho Lee Fook</td><td>카드 가능</td><td>각 HK$800~1,400</td></tr>
-    </table></div>
-    <p class="tip">현금은 둘이 합쳐 HK$1,000 정도 환전해 가면 충분해요.</p></div>
+    <ul>
+      <li>Kau Kee는 현금만. Mak Man Kee, 야시장 노점도 현금을 준비하세요.</li>
+      <li>둘이 합쳐 HK$1,000 정도면 충분해요. 모자라면 청킹맨션 환전소에서.</li>
+    </ul></div>
 </section>
 
 <!-- ===================== CHECKLIST ===================== -->
 <section id="check" class="info">
   <h2>체크리스트</h2>
   <div class="box check" id="checklist">
-    <label><input type="checkbox" data-k="c1"><span>Peking Garden 1일차 18:00 창가석 예약 (+852 2735 8211)</span></label>
-    <label><input type="checkbox" data-k="c2"><span>Ho Lee Fook 2일차 19:45 예약 (공식 사이트 온라인 예약)</span></label>
-    <label><input type="checkbox" data-k="c3"><span>피크트램 왕복 티켓 사전 구매 (2일차 15:30)</span></label>
-    <label><input type="checkbox" data-k="c4"><span>옥토퍼스 준비: 아이폰은 Octopus for Tourists 앱, 아니면 공항에서 실물 카드</span></label>
-    <label><input type="checkbox" data-k="c5"><span>공항철도 왕복 티켓 (공항 ↔ 구룡역)</span></label>
-    <label><input type="checkbox" data-k="c6"><span>eSIM 또는 로밍</span></label>
-    <label><input type="checkbox" data-k="c7"><span>홍콩달러 현금 HK$1,000</span></label>
-    <label><input type="checkbox" data-k="c8"><span>바람막이 (피크 저녁 바람), 접이식 우산</span></label>
-    <label><input type="checkbox" data-k="c9"><span>호텔에 3일차 짐 보관 가능한지 확인</span></label>
+    <label><input type="checkbox" id="c1" data-k="c1"><span>Peking Garden 1일차 18:45 창가석 예약</span></label>
+    <label><input type="checkbox" id="c2" data-k="c2"><span>Ho Lee Fook 2일차 19:45 예약</span></label>
+    <label><input type="checkbox" id="c3" data-k="c3"><span>피크트램 티켓 사전 구매</span></label>
+    <label><input type="checkbox" id="c4" data-k="c4"><span>옥토퍼스 준비 (앱 또는 공항에서 실물)</span></label>
+    <label><input type="checkbox" id="c5" data-k="c5"><span>공항철도 왕복 티켓</span></label>
+    <label><input type="checkbox" id="c6" data-k="c6"><span>eSIM 또는 로밍</span></label>
+    <label><input type="checkbox" id="c7" data-k="c7"><span>홍콩달러 현금 HK$1,000</span></label>
+    <label><input type="checkbox" id="c8" data-k="c8"><span>피크용 겉옷, 접이식 우산</span></label>
+    <label><input type="checkbox" id="c9" data-k="c9"><span>항공사 도심 체크인(구룡역) 가능 여부 확인</span></label>
   </div>
   <p class="tip" id="savenote" style="color:var(--sub);font-size:13px">체크한 항목은 이 기기에 저장돼요.</p>
 </section>
 
-<footer>지도는 보기 좋게 단순화한 그림이라 실제 거리 비율과 달라요. 영업시간과 요금은 바뀔 수 있으니 출발 전에 한 번 더 확인하세요.</footer>
+<footer>지도는 단순화한 그림이라 실제 거리 비율과 달라요. 대기 시간은 최근 후기를 바탕으로 잡은 예상치예요.</footer>
 </div>
 
 <script>
 (function(){
   var KEY='hk-trip-checklist', state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
-  var boxes=document.querySelectorAll('#checklist input');
-  boxes.forEach(function(b){
+  document.querySelectorAll('#checklist input').forEach(function(b){
     b.checked=!!state[b.dataset.k];
     b.addEventListener('change',function(){
       state[b.dataset.k]=b.checked;
